@@ -1,9 +1,38 @@
+
 :root{
     --background:#2C3333;
     --primary:#0E8388;
     --secendary:#2E4F4F;
     --text:#e2e6e5;
 }
+
+
+@font-face {
+    font-family: font1;
+    src: url("./assets/font/font1.woff");
+}
+
+@font-face {
+    font-family: seconds;
+    src: url("./assets/font/Seconds.otf");
+}
+
+
+@font-face {
+    font-family: kalatas;
+    src: url("./assets/font/Kalatas.otf");
+}
+
+@font-face {
+    font-family: roosevelt;
+    src: url("./assets/font/Roosevelt.ttf");
+}
+
+@font-face {
+    font-family: bh;
+    src: url("./assets/font/bh.otf");
+}
+
 
 
 *{
