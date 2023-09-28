@@ -31,12 +31,14 @@
     font-size: 1em;
 }
 
-.todoBox:hover {
-    /* animation: jello 1s; */
-    /* transform-origin: center; */
+.todoBox p {
+  font-family: "font2";
+  font-size: 1.5em;
+  font-weight: 100;
+  opacity: 0.8;
 }
 
-.right button {
+.right .btn {
     position: relative;
     background-color: transparent;
     border: none;
@@ -48,10 +50,12 @@
     font-family: "kalatas";
     font-size: 1.5em;
     font-weight: 700;
+    text-decoration: none;
+    color: var(--background);
 }
 
 
-.right button::after {
+.right .btn::after {
     content: '';
     position: absolute;
     bottom: -0.125rem;
@@ -64,14 +68,14 @@
 
 }
 
-.right button:hover {
+.right .btn:hover {
     transition: 0.5s;
     transform: scale(0.9);
     animation: headShake 1s;
     transform-origin: center;
 }
 
-.right button:hover::before {
+.right .btn:hover::before {
     content: '';
     position: absolute;
     top: -0.125rem;
@@ -124,10 +128,10 @@
     flex-direction: column;
 }
 
-.left button{
-  background-color: #F6E444;
+.left .btn{
+  background-color: var(--primary);
   border: 2px solid var(--background);
-  box-shadow: #422800 4px 4px 0 0;
+  box-shadow: var(--background) 4px 4px 0 0;
   color: var(--background);
   cursor: pointer;
   display: inline-block;
@@ -143,16 +147,16 @@
   margin: 1em;
 }
 
-.left button:hover {
-  background-color: #fff;
-  box-shadow: #422800 1px 1px 0 0;
+.left .btn:hover {
+  background-color:var(--text);
+  box-shadow: var(--background) 1px 1px 0 0;
   transform: translate(2px, 2px);
   transition: 0.1s;
 
 }
 
-.left button:active {
-  box-shadow: #422800 2px 2px 0 0;
+.left .btn:active {
+  box-shadow: var(--background) 2px 2px 0 0;
   transform: translate(2px, 2px);
 }
 

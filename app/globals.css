@@ -1,8 +1,8 @@
 
 :root{
-    --background:#2C3333;
-    --primary:#0E8388;
-    --secendary:#2E4F4F;
+    --background:#252A34;
+    --primary:#F6E444;
+    --secondary:#a8e063;
     --text:#e2e6e5;
 }
 
@@ -10,6 +10,11 @@
 @font-face {
     font-family: font1;
     src: url("./assets/font/font1.woff");
+}
+
+@font-face {
+    font-family: font2;
+    src: url("./assets/font/font2.ttf");
 }
 
 @font-face {

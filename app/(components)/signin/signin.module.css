@@ -1,0 +1,258 @@
+.loginMain {
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    /* background-color: var(--background); */
+    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%239C92AC' fill-opacity='0.25' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"), linear-gradient(to right top, #343a40, #2b2c31, #211f22, #151314, #000000); */
+}
+
+/* .loginMain form{
+    border: 1px solid slateblue;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+} */
+
+.loginMain form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    /* background-color: var(--background); */
+    background-color: rgba(0, 0, 0, 0.3);
+    /* background: linear-gradient(175deg, var(--background), var(--background)); */
+    /* #C9A8A1  */
+    box-shadow: 1px -1px 5px var(--text);
+    border-top: 1px solid var(--text);
+    padding: 1.3em;
+    border-radius: 0.5em;
+    box-sizing: border-box;
+}
+
+/* .loginMain form:after {
+    position: absolute;
+    content: '';
+    bottom: -1px;
+    left: 0px;
+    height: 4px;
+    width: 100%;
+    background-size: 3px 1px;
+    background-image: -webkit-radial-gradient(40% 100%, circle, transparent 20%, var(--secondary) 35%);
+    background-image: -moz-radial-gradient(40% 100%, circle, transparent 20%, var(--secondary) 35%);
+    background-image: -ms-radial-gradient(40% 100%, circle, transparent 20%, var(--secondary) 35%);
+    background-image: -o-radial-gradient(40% 100%, circle, transparent 20%, var(--secondary) 35%);
+    background-image: radial-gradient(40% 100%, circle, transparent 20%, var(--secondary) 35%);
+} */
+
+.loginMain form:before {
+    position: absolute;
+    content: '';
+    top: -5px;
+    left: 0;
+    height: 10px;
+    width: 99%;
+    background-size: 9px 12px;
+    background-image: -webkit-radial-gradient(5% 40%, circle, transparent 70%, var(--text) 20%);
+    background-image: -moz-radial-gradient(5% 40%, circle, transparent 70%, var(--text) 20%);
+    background-image: -ms-radial-gradient(5% 40%, circle, transparent 70%, var(--text) 20%);
+    background-image: -o-radial-gradient(5% 40%, circle, transparent 70%, var(--text) 20%);
+    background-image: radial-gradient(circle at 5% 40%, transparent 70%, var(--text) 20%);
+}
+
+.loginMain form h1{
+    font-family: 'bh';
+    font-size: 1.5em;
+    user-select: none;
+}
+
+
+.loginMain form .inputElem{
+    position: relative;
+    width: 100%;
+    /* height: 2em 0; */
+    border-bottom: 1px solid var(--text);
+    margin: 1em;
+    display: flex;
+    justify-content: baseline;
+}
+
+.loginMain form .inputElem i{
+    font-size: 1em;
+    pointer-events: none;
+    transition: 0.5s;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 0.3em;
+    padding-right: 0.3em;
+}
+
+
+.loginMain form .inputElem input{
+    /* width: 80%; */
+    height: 2em;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: var(--text);
+    font-family: 'font2';
+    font-size: 1em;
+}
+
+.inputElem:focus-within i{
+    color: var(--secondary);
+    transition: 0.5s;
+}
+
+
+.loginMain form input:-webkit-autofill,
+.loginMain form input:-webkit-autofill:hover,
+.loginMain form input:-webkit-autofill:focus input:-webkit-autofill,
+.loginMain form textarea:-webkit-autofill,
+.loginMain form textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+.loginMain form select:-webkit-autofill,
+.loginMain form select:-webkit-autofill:hover,
+.loginMain form select:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--text);
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+
+
+
+.loginMain form .btn {
+    position: relative;
+    font-family: 'Electrolize', sans-serif;
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 0.125em;
+    line-height: 1;
+    color: var(--text);
+    margin: 1em;
+    padding: 0.5em;
+    background: none;
+    border: none;
+    cursor: pointer;
+    /* background-color: rgba(0, 0, 0, 0.1); */
+}
+
+
+.loginMain form .btn:hover {
+    /* color: lighten(var(--secondary), 20%); */
+    color: var(--secondary);
+}
+
+.loginMain form .btn:focus {
+    color: lighten(var(--secondary), 10%);
+    outline: none;
+}
+
+.loginMain form .btn:active {
+    color: var(--secondary);
+}
+
+.loginMain form .btn:before,
+.loginMain form .btn:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 1px;
+}
+
+.loginMain form .btn:before {
+    top: 0;
+    left: 0;
+    box-shadow: inset 1px 1px 0 0 var(--text);
+}
+
+.loginMain form .btn:after {
+    right: 0;
+    bottom: 0;
+    box-shadow: inset -1px -1px 0 0 var(--text);
+}
+
+
+.loginMain form .btn:hover::before {
+    animation: hoverShadowBefore 1s forwards;
+    box-shadow: inset 1px 1px 0 0 var(--secondary);
+}
+
+
+.loginMain form .btn:hover::after {
+    animation: hoverShadowAfter 1s forwards;
+    box-shadow: inset -1px -1px 0 0 var(--secondary);
+}
+
+@keyframes hoverShadowBefore {
+    0% {
+        width: 100%;
+        height: 1px;
+
+        top: 0;
+        left: 0;
+    }
+
+    33% {
+        width: 1px;
+        height: 100%;
+
+        top: 0;
+        left: 0;
+    }
+
+    66% {
+        width: 1px;
+        height: 1px;
+
+        top: calc(100% - 1px);
+        left: 0;
+    }
+
+    100% {
+        width: 100%;
+        height: 1px;
+
+        top: calc(100% - 1px);
+        left: 0;
+    }
+}
+
+@keyframes hoverShadowAfter {
+    0% {
+        width: 100%;
+        height: 1px;
+    }
+
+    33% {
+        width: 1px;
+        height: 100%;
+
+        bottom: 0;
+        right: 0;
+    }
+
+    66% {
+        width: 1px;
+        height: 1px;
+
+        bottom: calc(100% - 1px);
+        right: 0;
+    }
+
+    100% {
+        width: 100%;
+        height: 1px;
+
+        bottom: calc(100% - 1px);
+        right: 0;
+    }
+}
