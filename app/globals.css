@@ -39,3 +39,19 @@ a{
     animation: swing 0.5s !important;
     color: var(--primary) !important;
 }
+
+
+
+
+
+
+/* Disable mobile */
+
+
+@media only screen and (max-width: 425px) {
+
+    body{
+      opacity: 0;
+    }
+
+}
