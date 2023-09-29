@@ -232,6 +232,23 @@
     box-shadow: inset -1px -1px 0 0 var(--primary);
 }
 
+.contactMain form .btnActive{
+    color: var(--primary);
+    text-transform: capitalize;
+}
+
+.contactMain form .btnActive::before {
+    animation: hoverShadowBefore 0.85s forwards infinite;
+    box-shadow: inset 1px 1px 0 0 var(--primary);
+}
+
+
+.contactMain form .btnActive::after {
+    animation: hoverShadowAfter 0.85s forwards infinite;
+    box-shadow: inset -1px -1px 0 0 var(--primary);
+}
+
+
 @keyframes hoverShadowBefore {
     0% {
         width: 100%;

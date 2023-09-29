@@ -6,9 +6,6 @@ const chatId = process.env.NEXT_PUBLIC_CHAT_ID;
 const telegraphToken = process.env.NEXT_PUBLIC_TELEGRAPH_TOKEN;
 
 
-console.log("Bot token:" + botToken)
-
-
 export async function POST(request: Request) {
     const formData = await request.json()
 
@@ -24,21 +21,20 @@ export async function POST(request: Request) {
         })
     } catch (error: any) {
 
-        const encodedErrorMessage = JSON.stringify(error.response.data).replace(/"/g, '\\"').replace(/^{/, "%0A{%0A").replace(/,/g, ",%0A").replace(/}$/, "%0A}%0A");
-        const telegraphResponse: any = await axios.post(
-            `https://api.telegra.ph/createPage?access_token=${telegraphToken}&title=${encodeURIComponent(error.response.data.description)}&author_name=iSongArtist&content=[{"tag":"p","children":["${encodedErrorMessage}"]}]&return_content=false`
-        ).catch((err) => {
-            console.log(err);
-        });
+        // const encodedErrorMessage = JSON.stringify(error.response).replace(/"/g, '\\"').replace(/^{/, "%0A{%0A").replace(/,/g, ",%0A").replace(/}$/, "%0A}%0A");
+        // const telegraphResponse: any = await axios.post(
+        //     `https://api.telegra.ph/createPage?access_token=${telegraphToken}&title=${encodeURIComponent(error.response.data.description)}&author_name=iSongArtist&content=[{"tag":"p","children":["${encodedErrorMessage}"]}]&return_content=false`
+        // ).catch((err) => {
+        //     console.log(err);
+        // });
 
-
-        const telegraphUrl = telegraphResponse.data.result.url;
-        const telegraphData = {
-            chat_id: chatId,
-            text: telegraphUrl,
-            parse_mode: 'markdown',
-        };
-        await axios.post(url, telegraphData);
+        // const telegraphUrl = telegraphResponse.data.result.url;
+        // const telegraphData = {
+        //     chat_id: chatId,
+        //     text: telegraphUrl,
+        //     parse_mode: 'markdown',
+        // };
+        // await axios.post(url, telegraphData);
 
         return new Response("Error submitting form", {
             status: 500
