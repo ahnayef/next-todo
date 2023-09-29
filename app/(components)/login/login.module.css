@@ -83,11 +83,17 @@
 
 
 .loginMain form h1 {
-    /* font-family: 'Itim', cursive; */
     font-family: 'Pacifico', cursive;
     font-size: 1.5em;
     user-select: none;
 }
+
+.loginMain form p {
+    font-family: 'Itim', cursive;
+    opacity: 0.9;
+}
+
+
 
 .loginMain form .inputElem {
     position: relative;

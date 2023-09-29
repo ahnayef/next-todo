@@ -2,6 +2,7 @@ import style from "./signin.module.css"
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { FaUser } from "react-icons/fa"
+import Link from "next/link";
 
 export default function page() {
     return (
@@ -30,6 +31,7 @@ export default function page() {
                     <input id='uConfirmPassword' type="password" placeholder='Confirm Password' required />
                 </div>
                 <button className={style.btn} type="submit">Sign Up</button>
+                <p>Already Have account? <Link href="/login">Login</Link> </p>
             </form>
         </div>
     )

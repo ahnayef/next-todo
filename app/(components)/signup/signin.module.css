@@ -80,14 +80,19 @@
     background-image: radial-gradient(circle at 5% 40%, transparent 70%, var(--text) 20%);
 }
 
-.loginMain form h1{
+.loginMain form h1 {
     font-family: 'Pacifico', cursive;
     font-size: 1.5em;
     user-select: none;
 }
 
+.loginMain form p {
+    font-family: 'Itim', cursive;
+    opacity: 0.9;
+}
 
-.loginMain form .inputElem{
+
+.loginMain form .inputElem {
     position: relative;
     width: 100%;
     /* height: 2em 0; */
@@ -97,7 +102,7 @@
     justify-content: baseline;
 }
 
-.loginMain form .inputElem i{
+.loginMain form .inputElem i {
     font-size: 1em;
     pointer-events: none;
     transition: 0.5s;
@@ -109,7 +114,7 @@
 }
 
 
-.loginMain form .inputElem input{
+.loginMain form .inputElem input {
     /* width: 80%; */
     height: 2em;
     border: none;
@@ -120,7 +125,7 @@
     font-size: 1em;
 }
 
-.inputElem:focus-within i{
+.inputElem:focus-within i {
     color: var(--primary);
     transition: 0.5s;
 }
