@@ -38,6 +38,10 @@
   transform: skew(2deg);
   font-family: 'Pacifico', cursive;
   font-size: 1em;
+  animation: todo 7s infinite alternate ease-in-out;
+  /* animation-delay: 2s; */
+  /* animation-timing-function: cubic-bezier(0.375, 0.885, 0.32, 1.275); */
+  transition: 0.5s;
 }
 
 .todoBox p {
@@ -52,6 +56,42 @@
   font-weight: 500;
   margin-top: 0.5em;
 }
+
+
+@keyframes todo {
+  0% {
+    border-top-left-radius: 50px 15px;
+  }
+
+  25% {
+    border-bottom-left-radius: 20px 115px;
+    border-bottom-right-radius: 105px 15px;
+  }
+
+  50% {
+    border-top-left-radius: 150px 15px;
+    border-bottom-left-radius: 20px 115px;
+    border-bottom-right-radius: 105px 15px;
+  }
+  
+  75%{
+    border-top-left-radius: 250px 15px;
+    border-top-right-radius: 105px 20px;
+    border-bottom-left-radius: 20px 115px;
+    border-bottom-right-radius: 105px 15px;
+
+    
+  }
+
+  100% {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+
 
 .right .btn {
   position: relative;
