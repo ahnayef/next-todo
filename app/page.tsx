@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(()=>{
     let width = screen.width;
     if(width <= 425){
-        alert("Please use desktop for now. Mobile version will be available soon.");
+        alert("Please use tab or desktop for now. Mobile version will be available soon.");
         location.assign("https://github.com/ahnayef");
     }
 },[])
