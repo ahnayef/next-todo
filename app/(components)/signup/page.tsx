@@ -27,7 +27,7 @@ export default function page() {
 
                 <div className={style.inputElem}>
                     <i> <RiLockPasswordFill /> </i>
-                    <input id='uPassword' type="password" placeholder='Confirm Password' required />
+                    <input id='uConfirmPassword' type="password" placeholder='Confirm Password' required />
                 </div>
                 <button className={style.btn} type="submit">Sign Up</button>
             </form>

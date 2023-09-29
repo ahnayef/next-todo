@@ -1,34 +1,34 @@
 .home {
-    background: linear-gradient(to right, #bdc3c7, #2c3e50);
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
+  background: linear-gradient(to right, #bdc3c7, #2c3e50);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 }
 
 .right {
-    flex: 1;
-    /* border: 1px solid red; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  flex: 1;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .todoBox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 3em 1em;
-    background-color: #F6E444;
-    color: var(--background);
-    box-shadow: -16px 13px 17px 0px rgba(0, 0, 0, 0.44);
-    transform: skew(2deg);
-    font-family: 'Pacifico', cursive;
-    font-size: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 3em 1em;
+  background-color: #F6E444;
+  color: var(--background);
+  box-shadow: -16px 13px 17px 0px rgba(0, 0, 0, 0.44);
+  transform: skew(2deg);
+  font-family: 'Pacifico', cursive;
+  font-size: 1em;
 }
 
 .todoBox p {
@@ -38,59 +38,59 @@
   opacity: 0.8;
 }
 
-.todoBox i{
+.todoBox i {
   opacity: 0.4;
   font-weight: 500;
   margin-top: 0.5em;
 }
 
 .right .btn {
-    position: relative;
-    background-color: transparent;
-    border: none;
-    font-size: 1.5em;
-    font-weight: bold;
-    margin: 0.5em;
-    padding: 0.3em;
-    cursor: pointer;
-    font-family: 'Courgette', cursive;
-    font-size: 1.5em;
-    font-weight: 700;
-    text-decoration: none;
-    color: var(--background);
+  position: relative;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0.5em;
+  padding: 0.3em;
+  cursor: pointer;
+  font-family: 'Courgette', cursive;
+  font-size: 1.5em;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--background);
 }
 
 
 .right .btn::after {
-    content: '';
-    position: absolute;
-    bottom: -0.125rem;
-    left: -0.5rem;
-    right: -0.5rem;
-    height: 0.75rem;
-    z-index: -1;
-    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/664131/underline.svg');
-    background-size: cover;
+  content: '';
+  position: absolute;
+  bottom: -0.125rem;
+  left: -0.5rem;
+  right: -0.5rem;
+  height: 0.75rem;
+  z-index: -1;
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/664131/underline.svg');
+  background-size: cover;
 
 }
 
 .right .btn:hover {
-    transition: 0.5s;
-    transform: scale(0.9);
-    animation: headShake 1s;
-    transform-origin: center;
+  transition: 0.5s;
+  transform: scale(0.9);
+  animation: headShake 1s;
+  transform-origin: center;
 }
 
 .right .btn:hover::before {
-    content: '';
-    position: absolute;
-    top: -0.125rem;
-    left: -0.5rem;
-    right: -0.5rem;
-    height: 0.75rem;
-    z-index: -1;
-    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/664131/underline.svg');
-    background-size: cover;
+  content: '';
+  position: absolute;
+  top: -0.125rem;
+  left: -0.5rem;
+  right: -0.5rem;
+  height: 0.75rem;
+  z-index: -1;
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/664131/underline.svg');
+  background-size: cover;
 
 }
 
@@ -127,14 +127,14 @@
 }
 
 .left {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.left .btn{
+.left .btn {
   background-color: var(--primary);
   border: 2px solid var(--background);
   box-shadow: var(--background) 4px 4px 0 0;
@@ -151,10 +151,11 @@
   -webkit-user-select: none;
   touch-action: manipulation;
   margin: 1em;
+  font-family: 'Itim', cursive;
 }
 
 .left .btn:hover {
-  background-color:var(--text);
+  background-color: var(--text);
   box-shadow: var(--background) 1px 1px 0 0;
   transform: translate(2px, 2px);
   transition: 0.1s;
