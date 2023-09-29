@@ -14,7 +14,7 @@ const initialState:{name:string,email:string,message:string}={
     message:""
 };
 
-export default function page() {
+export default function Page() {
 
     const[formState,setFormState]=useState(initialState);
     const [loading, setLoading] = useState(false);
