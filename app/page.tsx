@@ -13,7 +13,7 @@ export default function Home() {
           <h1>Todo</h1>
           <p>Small steps, big impact.</p>
           <Link href="/todo" className={style.btn}>Create your first todo</Link>
-          {/* <i className="icon-check"></i> */}
+          <i className="icon-check"></i>
         </div>
       </div>
     </div>
