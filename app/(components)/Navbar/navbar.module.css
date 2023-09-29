@@ -1,4 +1,4 @@
-.navMain{
+.navMain {
     position: fixed;
     top: 0;
     display: flex;
@@ -15,9 +15,61 @@
     font-family: 'Itim', cursive;
 }
 
-.navMain .logo a{
+.navMain .logo a {
     color: var(--text);
 }
-.navMain .logo:hover a{
+
+.navMain .logo:hover a {
     color: var(--primary);
+}
+
+.navMain .navIcons ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navIcons ul li {
+    padding: 0 0.5em;
+}
+
+.navIcons ul li a {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--text);
+    font-size: 0.8em;
+}
+
+.navIcons ul li a:hover {
+    animation: swing 0.5s;
+    color: var(--primary);
+    /* animation-timing-function: cubic-bezier(0.375, 0.885, 0.32, 1.275); */
+}
+
+
+
+
+
+@keyframes swing {
+    20% {
+        transform: rotate3d(0, 0, 1, 15deg);
+    }
+
+    40% {
+        transform: rotate3d(0, 0, 1, -10deg);
+    }
+
+    60% {
+        transform: rotate3d(0, 0, 1, 5deg);
+    }
+
+    80% {
+        transform: rotate3d(0, 0, 1, -5deg);
+    }
+
+    to {
+        transform: rotate3d(0, 0, 1, 0deg);
+    }
 }

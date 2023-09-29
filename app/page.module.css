@@ -32,7 +32,7 @@
   align-items: center;
   flex-direction: column;
   padding: 3em 1em;
-  background-color: #F6E444;
+  background-color: var(--primary-light);
   color: var(--background);
   box-shadow: -16px 13px 17px 0px rgba(0, 0, 0, 0.44);
   transform: skew(2deg);
