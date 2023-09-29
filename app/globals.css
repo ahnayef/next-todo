@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+/* font-family: 'Itim', cursive; */
+
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+/* font-family: 'Pacifico', cursive; */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+/* font-family: 'Caveat', cursive; */
+
+@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+/* font-family: 'Courgette', cursive; */
 
 :root{
     --background:#252A34;
@@ -7,36 +18,6 @@
 }
 
 
-@font-face {
-    font-family: font1;
-    src: url("./assets/font/font1.woff");
-}
-
-@font-face {
-    font-family: font2;
-    src: url("./assets/font/font2.ttf");
-}
-
-@font-face {
-    font-family: seconds;
-    src: url("./assets/font/Seconds.otf");
-}
-
-
-@font-face {
-    font-family: kalatas;
-    src: url("./assets/font/Kalatas.otf");
-}
-
-@font-face {
-    font-family: roosevelt;
-    src: url("./assets/font/Roosevelt.ttf");
-}
-
-@font-face {
-    font-family: bh;
-    src: url("./assets/font/bh.otf");
-}
 
 
 

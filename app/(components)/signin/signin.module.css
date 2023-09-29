@@ -68,7 +68,7 @@
 }
 
 .loginMain form h1{
-    font-family: 'bh';
+    font-family: 'Pacifico', cursive;
     font-size: 1.5em;
     user-select: none;
 }
@@ -103,7 +103,7 @@
     outline: none;
     background-color: transparent;
     color: var(--text);
-    font-family: 'font2';
+    font-family: 'Courgette', cursive;
     font-size: 1em;
 }
 

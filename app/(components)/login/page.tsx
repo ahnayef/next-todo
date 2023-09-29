@@ -6,7 +6,7 @@ export default function page() {
     return (
         <div className={style.loginMain}>
             <form>
-                <h1>Login</h1>
+                <h1>Log in</h1>
                 <div className={style.inputElem}>
                     <i><MdEmail /> </i>
                     <input id='uEmail' type="email" placeholder='Email' required />

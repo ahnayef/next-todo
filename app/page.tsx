@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import style from './page.module.css'
-
+import "@/app/assets/icon/style.css"
 export default function Home() {
   return (
     <div className={style.home}>
@@ -13,6 +13,7 @@ export default function Home() {
           <h1>Todo</h1>
           <p>Small steps, big impact.</p>
           <Link href="/todo" className={style.btn}>Create your first todo</Link>
+          <i className="icon-check"></i>
         </div>
       </div>
     </div>

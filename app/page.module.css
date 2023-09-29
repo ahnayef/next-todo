@@ -27,15 +27,21 @@
     color: var(--background);
     box-shadow: -16px 13px 17px 0px rgba(0, 0, 0, 0.44);
     transform: skew(2deg);
-    font-family: 'bh';
+    font-family: 'Pacifico', cursive;
     font-size: 1em;
 }
 
 .todoBox p {
-  font-family: "font2";
+  font-family: 'Caveat', cursive;
   font-size: 1.5em;
-  font-weight: 100;
+  /* font-weight: 100; */
   opacity: 0.8;
+}
+
+.todoBox i{
+  opacity: 0.4;
+  font-weight: 500;
+  margin-top: 0.5em;
 }
 
 .right .btn {
@@ -47,7 +53,7 @@
     margin: 0.5em;
     padding: 0.3em;
     cursor: pointer;
-    font-family: "kalatas";
+    font-family: 'Courgette', cursive;
     font-size: 1.5em;
     font-weight: 700;
     text-decoration: none;
