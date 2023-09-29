@@ -35,6 +35,19 @@
     padding: 1.3em;
     border-radius: 0.5em;
     box-sizing: border-box;
+    animation: zoomIn 0.5s;
+    animation-timing-function: cubic-bezier(0.375, 0.885, 0.32, 1.275);
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+
+    50% {
+        opacity: 1;
+    }
 }
 
 /* .loginMain form:after {
@@ -108,7 +121,7 @@
 }
 
 .inputElem:focus-within i{
-    color: var(--secondary);
+    color: var(--primary);
     transition: 0.5s;
 }
 
@@ -147,16 +160,16 @@
 
 .loginMain form .btn:hover {
     /* color: lighten(var(--secondary), 20%); */
-    color: var(--secondary);
+    color: var(--primary);
 }
 
 .loginMain form .btn:focus {
-    color: lighten(var(--secondary), 10%);
+    color: lighten(var(--primary), 10%);
     outline: none;
 }
 
 .loginMain form .btn:active {
-    color: var(--secondary);
+    color: var(--primary);
 }
 
 .loginMain form .btn:before,
@@ -183,13 +196,13 @@
 
 .loginMain form .btn:hover::before {
     animation: hoverShadowBefore 1s forwards;
-    box-shadow: inset 1px 1px 0 0 var(--secondary);
+    box-shadow: inset 1px 1px 0 0 var(--primary);
 }
 
 
 .loginMain form .btn:hover::after {
     animation: hoverShadowAfter 1s forwards;
-    box-shadow: inset -1px -1px 0 0 var(--secondary);
+    box-shadow: inset -1px -1px 0 0 var(--primary);
 }
 
 @keyframes hoverShadowBefore {

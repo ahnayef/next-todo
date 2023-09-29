@@ -6,6 +6,15 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
+
+  /* Pattern */
+
+  background-color: var(--background);
+  /* opacity: 0.8; */
+  background-image: radial-gradient(var(--background) 0.5px, transparent 0.5px), radial-gradient(#e2e6e590 0.5px, var(--background) 0.5px);
+  background-size: 26px 26px;
+  background-position: 0 0, 13px 13px;
+
 }
 
 .right {
@@ -136,8 +145,8 @@
 
 .left .btn {
   background-color: var(--primary);
-  border: 2px solid var(--background);
-  box-shadow: var(--background) 4px 4px 0 0;
+  border: 2px solid var(--background-light);
+  box-shadow: var(--background-light) 4px 4px 0 0;
   color: var(--background);
   cursor: pointer;
   display: inline-block;

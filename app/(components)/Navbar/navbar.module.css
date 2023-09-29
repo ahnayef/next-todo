@@ -7,10 +7,17 @@
     text-align: center;
     width: 100%;
     padding: 1em;
-    background-color: var(--background-light);
+    background-color: var(--background);
     color: var(--text);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     font-size: 1.3em;
     z-index: 2;
     font-family: 'Itim', cursive;
+}
+
+.navMain .logo a{
+    color: var(--text);
+}
+.navMain .logo:hover a{
+    color: var(--primary);
 }

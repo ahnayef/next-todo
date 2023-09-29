@@ -12,6 +12,7 @@
 
 :root{
     --background:#252A34;
+    --background-light:#3e4046;
     --primary:#F6E444;
     --secondary:#a8e063;
     --text:#e2e6e5;
@@ -26,4 +27,9 @@
 body{
     background-color: var(--background);
     color: var(--text);
+}
+
+a{
+    text-decoration: none;
+    color: var(--primary);
 }
