@@ -6,7 +6,7 @@ import { RiLockPasswordFill } from 'react-icons/ri';
 import { Metadata } from 'next'
  
 export const metadata :Metadata = {
-    title: 'Todogram',
+    title: 'Todogram | Login',
     description: 'Login to Todogram',
     authors:[{name:"AHNayef",url:"https://ahnayef.t.me"}],
     keywords:["todo", "workflow", "management", "routine", "progress"],

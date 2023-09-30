@@ -7,7 +7,7 @@ import { Metadata } from "next";
 
 
 export const metadata :Metadata = {
-    title: 'Todogram',
+    title: 'Todogram | Signup',
     description: 'Sign up on todogram',
     authors:[{name:"AHNayef",url:"https://ahnayef.t.me"}],
     keywords:["todo", "workflow", "management", "routine", "progress"],
