@@ -1,5 +1,4 @@
 "use client"
-
 import Link from "next/link"
 import style from "./not-found.module.css"
 
@@ -20,8 +19,6 @@ export default function Notfound() {
                         <Link className={style.goHome} href="/">Take me home</Link>
                         <a href="https://github.com/ahnayef" target="_"><cite className={style.author}>@AHNayef</cite></a>
                     </blockquote>
-
-
                 </div>
             </div>
         </>

@@ -20,6 +20,7 @@ export default function Contact() {
     const [loading, setLoading] = useState(false);
 
 
+
     const handleChange = (e:any)=>{
         const {name,value} =e.target;
         setFormState({...formState,[name]:value});

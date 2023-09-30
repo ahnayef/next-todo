@@ -5,8 +5,13 @@ import style from './page.module.css'
 import "@/app/assets/icon/style.css"
 import { useEffect } from "react";
 import Head from 'next/head';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './firebase';
 
 export default function Home() {
+
+  const [user, loading, error] = useAuthState(auth);
+
 
 
   useEffect(() => {
@@ -34,10 +39,18 @@ export default function Home() {
 
 
       <div className={style.home}>
+        
         <div className={style.left}>
-          <Link href="/login" className={style.btn}>Log in</Link>
-          <Link href="/signup" className={style.btn}>Sign up</Link>
+
+          {
+            user ? <div>Login</div> : <>
+            <Link href="/login" className={style.btn}>Log in</Link>
+            <Link href="/signup" className={style.btn}>Sign up</Link>
+            </>
+          }
         </div>
+
+
         <div className={style.right}>
           <div className={style.todoBox}>
             <h1>Todo</h1>

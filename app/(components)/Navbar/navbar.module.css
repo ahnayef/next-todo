@@ -48,7 +48,48 @@
     /* animation-timing-function: cubic-bezier(0.375, 0.885, 0.32, 1.275); */
 }
 
+.navProfile{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
 
+.navProfileMenu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* flex-direction: column; */
+    position: absolute;
+    /* border: 1px solid var(--primary); */
+    /* margin-top: 8em; */
+    /* margin-top: 1em; */
+}
+.navProfileMenu a, .btn{
+    border: 1px solid var(--primary);
+    padding: 0.5em;
+    background-color: var(--background);
+    margin: 0.5em;
+    font-size: 0.7em;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.navProfileMenu .red{
+    color: #DC3545;
+    border-color: #DC3545;
+}
+.navProfileMenu .red:hover{
+   background-color: #DC3545;
+}
+
+.navProfileMenu a:hover,.btn:hover{
+    cursor: pointer;
+    color: var(--background);
+    background-color: var(--primary);
+    transition: 0.5s;
+}
 
 
 

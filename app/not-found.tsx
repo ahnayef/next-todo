@@ -1,4 +1,3 @@
-import React from 'react'
 import Notfound from './Notfound'
 import { Metadata } from 'next'
 

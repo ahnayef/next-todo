@@ -7,28 +7,64 @@ import { FaEnvelope, FaInfoCircle, FaUserCircle } from "react-icons/fa"
 import { AiFillHome } from "react-icons/ai"
 import { IoIosCheckbox } from "react-icons/io"
 import { usePathname } from "next/navigation"
+import { useAuthState } from "react-firebase-hooks/auth"
+import { auth } from "@/app/firebase"
+import { signOut } from "firebase/auth"
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.min.css';
 
 export default function Navbar() {
 
     const path = usePathname();
 
-    return (
-        <nav className={style.navMain}>
-            <div className={style.logo}>
-                <Link href="/"> <i className="icon-check"></i> Todo</Link>
-            </div>
+    // const[profileMenu,setProfilemenu]=useState(false);
 
-            <div className={style.navIcons}>
-                <ul>
-                    <li><Link href="/" className={path === "/" ? "active" : ""}> <i><AiFillHome /></i> Home </Link></li>
-                    <li><Link href="/todo" className={path === "/todo" ? "active" : ""}> <i><IoIosCheckbox /></i> Todo </Link></li>
-                    <li><Link href="/about" className={path === "/about" ? "active" : ""}> <i><FaInfoCircle /></i> About </Link></li>
-                    <li><Link href="/contact" className={path === "/contact" ? "active" : ""}> <i><FaEnvelope /></i> Contact</Link></li>
-                </ul>
-            </div>
-            <div className={style.navIcons}>
-                <i><FaUserCircle /></i>
-            </div>
-        </nav>
+    // const handleClick = ()=>{
+    //     if(profileMenu){
+    //         setProfilemenu(false);
+    //     }else{
+    //         setProfilemenu(true);
+    //     }
+    // }
+    const [user, loading, error] = useAuthState(auth);
+
+
+    const logOut = () => {
+        signOut(auth).then(() => {
+            toast.success("Logged out");
+        }).catch((error) => {
+            console.log(error)
+        });
+    }
+
+
+    return (
+        <>
+        <ToastContainer theme="dark"/>
+            <nav className={style.navMain}>
+                <div className={style.logo}>
+                    <Link href="/"> <i className="icon-check"></i> Todo</Link>
+                </div>
+
+                <div className={style.navIcons}>
+                    <ul>
+                        <li><Link href="/" className={path === "/" ? "active" : ""}> <i><AiFillHome /></i> Home </Link></li>
+                        <li><Link href="/todo" className={path === "/todo" ? "active" : ""}> <i><IoIosCheckbox /></i> Todo </Link></li>
+                        <li><Link href="/about" className={path === "/about" ? "active" : ""}> <i><FaInfoCircle /></i> About </Link></li>
+                        <li><Link href="/contact" className={path === "/contact" ? "active" : ""}> <i><FaEnvelope /></i> Contact</Link></li>
+                    </ul>
+                </div>
+                <div className={style.navProfile}>
+                    {/* <i onClick={handleClick} ><FaUserCircle /></i> */}
+                    <div className={style.navProfileMenu}>
+                        <Link href="/profile">Profile</Link>
+                        {
+                            user ?
+                                <button className={`${style.btn} ${style.red}`} onClick={logOut}>Logout</button> : ""
+                        }
+                    </div>
+                </div>
+            </nav>
+        </>
     )
 }
