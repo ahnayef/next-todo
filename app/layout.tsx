@@ -14,7 +14,7 @@ export const metadata :Metadata = {
   viewport:{
       width:"device-width",
       initialScale:1,
-      userScalable:false
+      userScalable:true
   },
 
   openGraph: {
@@ -39,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html>
+    <html lang='en_US'>
       <body>
         <Navbar />
         {children}
