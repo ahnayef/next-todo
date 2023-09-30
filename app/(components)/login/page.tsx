@@ -6,11 +6,11 @@ import { RiLockPasswordFill } from 'react-icons/ri';
 import { Metadata } from 'next'
  
 export const metadata :Metadata = {
-    title: 'Todo | Login',
+    title: 'Todogram',
     description: 'Login to Todogram',
     authors:[{name:"AHNayef",url:"https://ahnayef.t.me"}],
     keywords:["todo", "workflow", "management", "routine", "progress"],
-
+    metadataBase: new URL('https://todogram.vercel.app'),
     viewport:{
         width:"device-width",
         initialScale:1,
@@ -23,8 +23,8 @@ export const metadata :Metadata = {
       images: [
         {
           url: 'https://raw.githubusercontent.com/ahnayef/next-todo/main/app/assets/img/meta/login.png',
-          width: 2782,
-          height: 1391,
+          width: 1280,
+          height: 640,
           alt: 'Meta Image',
         },
       ],

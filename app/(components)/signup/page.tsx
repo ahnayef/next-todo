@@ -3,10 +3,40 @@ import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { FaUser } from "react-icons/fa"
 import Link from "next/link";
+import { Metadata } from "next";
+
+
+export const metadata :Metadata = {
+    title: 'Todogram',
+    description: 'Sign up on todogram',
+    authors:[{name:"AHNayef",url:"https://ahnayef.t.me"}],
+    keywords:["todo", "workflow", "management", "routine", "progress"],
+    metadataBase: new URL('https://todogram.vercel.app'),
+    viewport:{
+        width:"device-width",
+        initialScale:1,
+        userScalable:false
+    },
+
+    openGraph: {
+      url: 'https://www.todogram.vercel.app',
+      siteName: 'Todogram',
+      images: [
+        {
+          url: 'https://raw.githubusercontent.com/ahnayef/next-todo/main/app/assets/img/meta/signup.png',
+          width: 1280,
+          height: 640,
+          alt: 'Meta Image',
+        },
+      ],
+      locale: 'en_US',
+      type: 'website',
+    },
+  }
 
 export default function page() {
     return (
-        <div className={style.loginMain}>
+        <div className={style.signupMain}>
             <form>
                 <h1>Sign Up</h1>
 
@@ -31,7 +61,7 @@ export default function page() {
                     <input id='uConfirmPassword' type="password" placeholder='Confirm Password' required />
                 </div>
                 <button className={style.btn} type="submit">Sign Up</button>
-                <p>Already Have account? <Link href="/login">Login</Link> </p>
+                <p>Already Have account? <Link href="/signup">signup</Link> </p>
             </form>
         </div>
     )

@@ -1,4 +1,4 @@
-.loginMain {
+.signupMain {
     color: var(--text);
     display: flex;
     justify-content: center;
@@ -20,7 +20,7 @@
     flex-direction: column;
 } */
 
-.loginMain form {
+.signupMain form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,7 +65,7 @@
     background-image: radial-gradient(40% 100%, circle, transparent 20%, var(--secondary) 35%);
 } */
 
-.loginMain form:before {
+.signupMain form:before {
     position: absolute;
     content: '';
     top: -5px;
@@ -80,19 +80,19 @@
     background-image: radial-gradient(circle at 5% 40%, transparent 70%, var(--text) 20%);
 }
 
-.loginMain form h1 {
+.signupMain form h1 {
     font-family: 'Pacifico', cursive;
     font-size: 1.5em;
     user-select: none;
 }
 
-.loginMain form p {
+.signupMain form p {
     font-family: 'Itim', cursive;
     opacity: 0.9;
 }
 
 
-.loginMain form .inputElem {
+.signupMain form .inputElem {
     position: relative;
     width: 100%;
     /* height: 2em 0; */
@@ -102,7 +102,7 @@
     justify-content: baseline;
 }
 
-.loginMain form .inputElem i {
+.signupMain form .inputElem i {
     font-size: 1em;
     pointer-events: none;
     transition: 0.5s;
@@ -114,7 +114,7 @@
 }
 
 
-.loginMain form .inputElem input {
+.signupMain form .inputElem input {
     /* width: 80%; */
     height: 2em;
     border: none;
@@ -131,14 +131,14 @@
 }
 
 
-.loginMain form input:-webkit-autofill,
-.loginMain form input:-webkit-autofill:hover,
-.loginMain form input:-webkit-autofill:focus input:-webkit-autofill,
-.loginMain form textarea:-webkit-autofill,
-.loginMain form textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
-.loginMain form select:-webkit-autofill,
-.loginMain form select:-webkit-autofill:hover,
-.loginMain form select:-webkit-autofill:focus {
+.signupMain form input:-webkit-autofill,
+.signupMain form input:-webkit-autofill:hover,
+.signupMain form input:-webkit-autofill:focus input:-webkit-autofill,
+.signupMain form textarea:-webkit-autofill,
+.signupMain form textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+.signupMain form select:-webkit-autofill,
+.signupMain form select:-webkit-autofill:hover,
+.signupMain form select:-webkit-autofill:focus {
     -webkit-text-fill-color: var(--text);
     transition: background-color 5000s ease-in-out 0s;
 }
@@ -146,7 +146,7 @@
 
 
 
-.loginMain form .btn {
+.signupMain form .btn {
     position: relative;
     font-family: 'Electrolize', sans-serif;
     font-size: 1em;
@@ -163,22 +163,22 @@
 }
 
 
-.loginMain form .btn:hover {
+.signupMain form .btn:hover {
     /* color: lighten(var(--secondary), 20%); */
     color: var(--primary);
 }
 
-.loginMain form .btn:focus {
+.signupMain form .btn:focus {
     color: lighten(var(--primary), 10%);
     outline: none;
 }
 
-.loginMain form .btn:active {
+.signupMain form .btn:active {
     color: var(--primary);
 }
 
-.loginMain form .btn:before,
-.loginMain form .btn:after {
+.signupMain form .btn:before,
+.signupMain form .btn:after {
     content: "";
     display: block;
     position: absolute;
@@ -186,26 +186,26 @@
     height: 1px;
 }
 
-.loginMain form .btn:before {
+.signupMain form .btn:before {
     top: 0;
     left: 0;
     box-shadow: inset 1px 1px 0 0 var(--text);
 }
 
-.loginMain form .btn:after {
+.signupMain form .btn:after {
     right: 0;
     bottom: 0;
     box-shadow: inset -1px -1px 0 0 var(--text);
 }
 
 
-.loginMain form .btn:hover::before {
+.signupMain form .btn:hover::before {
     animation: hoverShadowBefore 1s forwards;
     box-shadow: inset 1px 1px 0 0 var(--primary);
 }
 
 
-.loginMain form .btn:hover::after {
+.signupMain form .btn:hover::after {
     animation: hoverShadowAfter 1s forwards;
     box-shadow: inset -1px -1px 0 0 var(--primary);
 }
