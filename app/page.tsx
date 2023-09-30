@@ -27,7 +27,7 @@ export default function Home() {
         <meta name="description" content="Home" />
         <meta name="keywords" content="todo, task, workflow, management, routine" />
         <meta property="og:title" content="Todo" />
-        <meta property="og:image" content="https://raw.githubusercontent.com/ahnayef/assets/main/iSongArtist/pages/About.png" />
+        <meta property="og:image" content="https://raw.githubusercontent.com/ahnayef/next-todo/main/app/assets/img/meta.png" />
         <meta property="og:url" content="https://www.todogram.vercel.app" />
         <meta name="author" content="AHNayef" />
       </Head>
