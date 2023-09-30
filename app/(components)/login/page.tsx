@@ -62,7 +62,7 @@ export default function page() {
                         <input id='uPassword' type="password" placeholder='Password' required />
                     </div>
                     <button className={style.btn} type="submit">Login</button>
-                    <p>Not Have an account? <Link href="/signup">Signup</Link> </p>
+                    <p>Not Have an account? <Link href="/signup">Signup</Link></p>
                 </form>
             </div>
         </>

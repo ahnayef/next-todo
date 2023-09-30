@@ -72,7 +72,7 @@ export default function page() {
                     <input id='uConfirmPassword' type="password" placeholder='Confirm Password' required />
                 </div>
                 <button className={style.btn} type="submit">Sign Up</button>
-                <p>Already Have account? <Link href="/signup">signup</Link> </p>
+                <p>Already Have account? <Link href="/login">Login</Link></p>
             </form>
         </div>
     )
