@@ -18,7 +18,7 @@ export default function Notfound() {
                         <p>No plan, no work, no progression...</p>
                         <p>Get back to work my dude</p>
                         <Link className={style.goHome} href="/">Take me home</Link>
-                        <cite className={style.author}>@AHNayef</cite>
+                        <a href="https://github.com/ahnayef" target="_"><cite className={style.author}>@AHNayef</cite></a>
                     </blockquote>
 
 

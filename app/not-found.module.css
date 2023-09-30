@@ -55,6 +55,11 @@
     display: block;
     margin: 2em 0 0 0;
     text-align: right;
+    cursor: alias;
+}
+
+.note a {
+    color: var(--background);
 }
 
 /* .yellow {
@@ -120,7 +125,8 @@
     font-size: 2.5em;
     font-weight: 700;
     line-height: 1.2;
-    color: var(--background);
+    /* color: var(--background); */
+    color: #c00000;
     letter-spacing: 5px;
     z-index: 1;
 }
@@ -131,7 +137,8 @@
     top: 0;
     left: -2px;
     width: 100%;
-    color: #222222;
+    /* color: var(--background); */
+    color: #c00000;
     background-color: var(--primary-light);
     overflow: hidden;
     clip: rect(0, 900px, 0, 0);
@@ -144,7 +151,8 @@
     top: 0;
     left: 2px;
     width: 100%;
-    color: #222222;
+    /* color: var(--background); */
+    color: #c00000;
     background-color: var(--primary-light);
     overflow: hidden;
     clip: rect(0, 900px, 0, 0);
