@@ -31,6 +31,17 @@ export const metadata :Metadata = {
       locale: 'en_US',
       type: 'website',
     },
+    twitter:{
+        creator:"_AHNayef_",
+        images: [
+            {
+              url: 'https://raw.githubusercontent.com/ahnayef/next-todo/main/app/assets/img/meta/contact.png',
+              width: 1280,
+              height: 640,
+              alt: 'Meta Image',
+            },
+          ],
+    }
   }
  
 

@@ -1,29 +1,51 @@
-"use client"
+import React from 'react'
+import Notfound from './Notfound'
+import { Metadata } from 'next'
 
-import Link from "next/link"
-import style from "./not-found.module.css"
+export const metadata :Metadata = {
+    title: 'Error 404',
+    description: 'Page not found',
+    authors:[{name:"AHNayef",url:"https://ahnayef.t.me"}],
+    keywords:["todo", "workflow", "management", "routine", "progress"],
+    metadataBase: new URL('https://todogram.vercel.app'),
 
+    viewport:{
+        width:"device-width",
+        initialScale:1,
+        userScalable:false
+    },
+
+    openGraph: {
+      url: 'https://www.todogram.vercel.app',
+      siteName: 'Todogram',
+      images: [
+        {
+          url: 'https://raw.githubusercontent.com/ahnayef/next-todo/main/app/assets/img/meta/notfound.png',
+          width: 1280,
+          height: 640,
+          alt: 'Meta Image',
+        },
+      ],
+      locale: 'en_US',
+      type: 'website',
+    },
+    twitter:{
+        creator:"_AHNayef_",
+        images: [
+            {
+              url: 'https://raw.githubusercontent.com/ahnayef/next-todo/main/app/assets/img/meta/notfound.png',
+              width: 1280,
+              height: 640,
+              alt: 'Meta Image',
+            },
+          ],
+    }
+  }
 
 export default function Err() {
-    return (
-        <>
-            <div className={style.errMain}>
-
-                <div className={style.quoteContainer}>
-                    <i className={style.pin}></i>
-                    <blockquote className={style.note}>
-                        <div className={style.glitch} data-glitch="Erro 404">Erro 404</div>
-                        <h4>Page not found</h4>
-                        <br />
-                        <p>No plan, no work, no progression...</p>
-                        <p>Get back to work my dude</p>
-                        <Link className={style.goHome} href="/">Take me home</Link>
-                        <cite className={style.author}>@AHNayef</cite>
-                    </blockquote>
-
-
-                </div>
-            </div>
-        </>
-    )
+  return (
+    <>
+    <Notfound/>
+    </>
+  )
 }
