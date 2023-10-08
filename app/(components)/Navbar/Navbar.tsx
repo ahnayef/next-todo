@@ -3,7 +3,7 @@
 import style from "./navbar.module.css"
 import "@/app/assets/icon/style.css"
 import Link from "next/link"
-import { FaEnvelope, FaInfoCircle, FaUserCircle } from "react-icons/fa"
+import { FaEnvelope, FaInfoCircle } from "react-icons/fa"
 import { AiFillHome } from "react-icons/ai"
 import { IoIosCheckbox } from "react-icons/io"
 import { usePathname } from "next/navigation"
@@ -17,16 +17,7 @@ export default function Navbar() {
 
     const path = usePathname();
 
-    // const[profileMenu,setProfilemenu]=useState(false);
-
-    // const handleClick = ()=>{
-    //     if(profileMenu){
-    //         setProfilemenu(false);
-    //     }else{
-    //         setProfilemenu(true);
-    //     }
-    // }
-    const [user, loading, error] = useAuthState(auth);
+    const [user] = useAuthState(auth);
 
 
     const logOut = () => {
@@ -55,12 +46,11 @@ export default function Navbar() {
                     </ul>
                 </div>
                 <div className={style.navProfile}>
-                    {/* <i onClick={handleClick} ><FaUserCircle /></i> */}
                     <div className={style.navProfileMenu}>
                         <Link href="/profile">Profile</Link>
                         {
                             user ?
-                                <button className={`${style.btn} ${style.red}`} onClick={logOut}>Logout</button> : ""
+                                <button className={`${style.btn} ${style.red}`} onClick={logOut}>Logout</button> : " "
                         }
                     </div>
                 </div>
