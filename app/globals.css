@@ -10,6 +10,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
 /* font-family: 'Courgette', cursive; */
 
+/* @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap'); */
+/* font-family: 'Shadows Into Light', cursive; */
+
 :root{
     --background:#252A34;
     --background-light:#3e4046;
@@ -17,6 +20,7 @@
     --primary-light:#eae672;
     --secondary:#a8e063;
     --text:#e2e6e5;
+    --red:#DC3545;
 }
 
 

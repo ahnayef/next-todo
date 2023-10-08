@@ -28,7 +28,6 @@ export default function Home() {
 
   useEffect(() => {
     if (user) {
-      console.log(user.uid)
       const loadData = async () => {
         let data = [];
         const docRef = doc(db, "users", `${user.uid}`);
@@ -67,8 +66,10 @@ export default function Home() {
         <div className={style.left}>
 
           {
-            user ? <div>
-              <h1>Welcome {uname}</h1>
+            user ? <div className={style.welcome}>
+              <h1>Welcome back, <b>{uname}</b></h1>
+              <Link href="/todo" className={style.btn}>My todos</Link>
+              <button className={`${style.btn} ${style.red}`}>Logout</button>
             </div> : <>
               <Link href="/login" className={style.btn}>Log in</Link>
               <Link href="/signup" className={style.btn}>Sign up</Link>

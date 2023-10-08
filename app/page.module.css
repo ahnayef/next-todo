@@ -181,7 +181,26 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  font-family: 'Itim', cursive;
 }
+
+.left .welcome{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.left .welcome b{
+  color: var(--primary);
+}
+
+.left .welcome button.red{
+  background-color: var(--red);
+}
+
+
 
 .left .btn {
   background-color: var(--primary);

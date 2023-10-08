@@ -77,11 +77,11 @@
 }
 
 .navProfileMenu .red{
-    color: #DC3545;
-    border-color: #DC3545;
+    color: var(--red);
+    border-color: var(--red);
 }
 .navProfileMenu .red:hover{
-   background-color: #DC3545;
+   background-color: var(--red);
 }
 
 .navProfileMenu a:hover,.btn:hover{

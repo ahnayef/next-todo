@@ -44,7 +44,7 @@
 }
 
 .note .goHome {
-    color: var(--background);
+    color: var(--background-light);
     font-family: 'Itim', cursive;
     text-decoration: underline wavy;
     cursor: pointer;
@@ -126,7 +126,7 @@
     font-weight: 700;
     line-height: 1.2;
     /* color: var(--background); */
-    color: #c00000;
+    color: var(--red);
     letter-spacing: 5px;
     z-index: 1;
 }
@@ -138,7 +138,7 @@
     left: -2px;
     width: 100%;
     /* color: var(--background); */
-    color: #c00000;
+    color: var(--red);
     background-color: var(--primary-light);
     overflow: hidden;
     clip: rect(0, 900px, 0, 0);
@@ -152,7 +152,7 @@
     left: 2px;
     width: 100%;
     /* color: var(--background); */
-    color: #c00000;
+    color: var(--red);
     background-color: var(--primary-light);
     overflow: hidden;
     clip: rect(0, 900px, 0, 0);
@@ -355,11 +355,11 @@
     }
 
     59% {
-        transform: skewX(40deg) skewY(10deg);
+        transform: skewX(20deg) skewY(5deg);
     }
 
     60% {
-        transform: skewX(-40deg) skewY(-10deg);
+        transform: skewX(-20deg) skewY(-5deg);
     }
 
     63% {
@@ -367,7 +367,7 @@
     }
 
     70% {
-        transform: skewX(-50deg) skewY(-20deg);
+        transform: skewX(-30deg) skewY(-10deg);
     }
 
     71% {
