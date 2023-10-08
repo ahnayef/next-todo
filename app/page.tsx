@@ -27,26 +27,27 @@ export default function Home() {
 
 
   useEffect(() => {
-    const loadData = async () => {
-      let data=[];
-      const docRef = doc(db, "users", `${user?.uid}`);
-      const docSnap = await getDoc(docRef);
+    if (user) {
+      console.log(user.uid)
+      const loadData = async () => {
+        let data = [];
+        const docRef = doc(db, "users", `${user.uid}`);
+        const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()){
-        data.push(docSnap.data());
-        setUname(data[0]?.name);
-      }else{
-        toast.error("No such document");
+        if (docSnap.exists()) {
+          data.push(docSnap.data());
+          setUname(data[0]?.name);
+        } else {
+          toast.error("No such document");
+        }
       }
-
-
+      loadData();
     }
-    loadData();
-  }, []);
+  }, [user]);
 
   return (
     <>
-    <ToastContainer/>
+      <ToastContainer theme='dark'/>
       <Head>
         <title>Todo | Home</title>
         {/* meta  */}
