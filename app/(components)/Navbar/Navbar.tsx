@@ -50,7 +50,7 @@ export default function Navbar() {
                         <Link href="/profile">Profile</Link>
                         {
                             user ?
-                                <button className={`${style.btn} ${style.red}`} onClick={logOut}>Logout</button> : " "
+                                <div className={`${style.btn} ${style.red}`} onClick={logOut}>Logout</div> : ""
                         }
                     </div>
                 </div>

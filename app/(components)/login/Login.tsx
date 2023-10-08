@@ -30,7 +30,7 @@ export default function Login() {
         else if(user){
           location.href = '/';
         }
-        else{
+        else if(error){
           console.log(error)
         }
       },[user,loading,error]);

@@ -3,15 +3,18 @@
 import Link from 'next/link'
 import style from './page.module.css'
 import "@/app/assets/icon/style.css"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Head from 'next/head';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from './firebase';
+import { auth, db } from './firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 export default function Home() {
 
   const [user, loading, error] = useAuthState(auth);
-
+  const [uname, setUname] = useState("");
 
 
   useEffect(() => {
@@ -22,8 +25,28 @@ export default function Home() {
     }
   }, [])
 
+
+  useEffect(() => {
+    const loadData = async () => {
+      let data=[];
+      const docRef = doc(db, "users", `${user?.uid}`);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()){
+        data.push(docSnap.data());
+        setUname(data[0]?.name);
+      }else{
+        toast.error("No such document");
+      }
+
+
+    }
+    loadData();
+  }, []);
+
   return (
     <>
+    <ToastContainer/>
       <Head>
         <title>Todo | Home</title>
         {/* meta  */}
@@ -39,13 +62,15 @@ export default function Home() {
 
 
       <div className={style.home}>
-        
+
         <div className={style.left}>
 
           {
-            user ? <div>Login</div> : <>
-            <Link href="/login" className={style.btn}>Log in</Link>
-            <Link href="/signup" className={style.btn}>Sign up</Link>
+            user ? <div>
+              <h1>Welcome {uname}</h1>
+            </div> : <>
+              <Link href="/login" className={style.btn}>Log in</Link>
+              <Link href="/signup" className={style.btn}>Sign up</Link>
             </>
           }
         </div>

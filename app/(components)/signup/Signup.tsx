@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/app/firebase"
 import { useAuthState } from "react-firebase-hooks/auth";
-import { addDoc, collection } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 
 const initialState: { name: string, email: string, password: string, confirmPassword: string } = {
   name: "",
@@ -34,16 +34,15 @@ export default function Signup() {
     else if (myUser) {
       location.href = '/';
     }
-    else {
+    else if (error) {
       console.log(error)
     }
-  }, [myUser, loading, error]);
+  }, []);
 
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
-
   }
 
 
@@ -58,36 +57,40 @@ export default function Signup() {
     const password = formState.password;
     const confirmPassword = formState.confirmPassword;
 
-
-    if (password === confirmPassword) {
-      console.log(email + " " + password);
-      createUserWithEmailAndPassword(auth, email, password).then((myUser) => {
-        // Signed up 
-
-        try {
-          addDoc(collection(db, "users"), {
-            name: name,
-            email: myUser.user.email,
-            id: myUser.user.uid
-          }).then(() => {
-            toast.success("Created account successfully!");
-            location.href = "/login";
-          });
-        } catch (e) {
-          console.error("Error adding document: ", e);
-          toast.error("Error adding document");
-        }
-
-      }).catch((error) => {
-        const errorMessage = error.message;
-        let errMsg = error.code.replace(/auth/g, '').replace(/[^a-zA-Z0-9]|\s\s+/g, ' ').substring(1);
-        let newMsg = errMsg[0].toUpperCase() + errMsg.substring(1);
-        toast.error(newMsg);
-        console.log(errorMessage);
-      });
-
-    } else {
-      toast.error("Password dosen't match");
+    if(name && email && password && confirmPassword){
+      if (password === confirmPassword) {
+        // console.log(email + " " + password);
+        createUserWithEmailAndPassword(auth, email, password).then(async (myUser) => {
+          console.log("Account created");
+          try {
+            console.log("Adding data to database...")
+            await setDoc(doc(db, "users", myUser.user.uid), {
+              name: name,
+              email: myUser.user.email,
+              id: myUser.user.uid
+            }).then(() => {
+              toast.success("Created account successfully!");
+              console.log("Account created!");
+              location.href = "/login";
+            });
+          } catch (e) {
+            console.error("Error adding document: ", e);
+            toast.error("Error adding document");
+          }
+  
+        }).catch((error) => {
+          const errorMessage = error.message;
+          let errMsg = error.code.replace(/auth/g, '').replace(/[^a-zA-Z0-9]|\s\s+/g, ' ').substring(1);
+          let newMsg = errMsg[0].toUpperCase() + errMsg.substring(1);
+          toast.error(newMsg);
+          console.log(errorMessage);
+        });
+  
+      } else {
+        toast.error("Password dosen't match");
+      }
+    }else{
+      toast.error("Fill out the form");
     }
 
 
