@@ -29,7 +29,23 @@
     opacity: 0.9;
     cursor: help;
     border-radius: 1.2em;
+    box-sizing: border-box;
+    animation: zoomIn 0.5s;
+    animation-timing-function: cubic-bezier(0.375, 0.885, 0.32, 1.275);
 }
+
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
 
 .top {
     width: 100%;
