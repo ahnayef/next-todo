@@ -24,6 +24,7 @@ export default function Navbar() {
         signOut(auth).then(() => {
             toast.success("Logged out");
         }).catch((error) => {
+            toast.error("Something went wrong");
             console.log(error)
         });
     }
@@ -31,7 +32,7 @@ export default function Navbar() {
 
     return (
         <>
-        <ToastContainer theme="dark"/>
+            <ToastContainer theme="dark" />
             <nav className={style.navMain}>
                 <div className={style.logo}>
                     <Link href="/"> <i className="icon-check"></i> Todo</Link>

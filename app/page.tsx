@@ -10,12 +10,22 @@ import { auth, db } from './firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { signOut } from 'firebase/auth';
 
 export default function Home() {
 
   const [user, loading, error] = useAuthState(auth);
   const [uname, setUname] = useState("");
 
+
+  const logOut = () => {
+    signOut(auth).then(() => {
+      toast.success("Logged out");
+    }).catch((error) => {
+      toast.error("Something went wrong");
+      console.log(error)
+    });
+  }
 
   useEffect(() => {
     let width = screen.width;
@@ -46,7 +56,7 @@ export default function Home() {
 
   return (
     <>
-      <ToastContainer theme='dark'/>
+      <ToastContainer theme='dark' />
       <Head>
         <title>Todo | Home</title>
         {/* meta  */}
@@ -69,7 +79,7 @@ export default function Home() {
             user ? <div className={style.welcome}>
               <h1>Welcome back, <b>{uname}</b></h1>
               <Link href="/todo" className={style.btn}>My todos</Link>
-              <button className={`${style.btn} ${style.red}`}>Logout</button>
+              <button className={`${style.btn} ${style.red}`} onClick={logOut}>Logout</button>
             </div> : <>
               <Link href="/login" className={style.btn}>Log in</Link>
               <Link href="/signup" className={style.btn}>Sign up</Link>
