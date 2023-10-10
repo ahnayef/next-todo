@@ -11,7 +11,7 @@ export default function About() {
         <div className={style.paper}>
 
           <p>
-            Everyone works, right? But who really wins in the end? It&apos;s not about having a messy approach to work or feeling tired all the time. The true winner plans smartly. Turns out, planning is like doing half the work. Without it, things get tricky. Back when I was younger, I didn&apos;t plan anything. My work was all over the place, and the results? Not great.</p>
+            Everyone works, right? But who really wins at the end? It&apos;s not about having a messy approach to work or feeling tired all the time. The true winner plans smartly. Turns out, planning is like doing half the work. Without it, things get tricky. Back when I was younger, I didn&apos;t plan anything. My work was all over the place, and the results? Not great.</p>
           <br />
           <p>Even when I started web developing, my work was a bit messy. Tasks took longer than I expected. That&apos;s when I figured out planning—breaking tasks into smaller parts. It speeds things up, and the results are way better. Since then, I&apos;ve been breaking down tasks regularly and getting results I didn&apos;t expect.</p>
           <br />
