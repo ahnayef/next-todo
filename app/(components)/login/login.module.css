@@ -93,6 +93,11 @@
     opacity: 0.9;
 }
 
+.loginMain form .red {
+  color: var(--red);
+  cursor: pointer;
+}
+
 
 
 .loginMain form .inputElem {

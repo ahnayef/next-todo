@@ -7,7 +7,7 @@ import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/app/firebase';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -20,52 +20,74 @@ const initialState: { email: string, password: string } = {
 
 export default function Login() {
 
-    const[formState,setFormState]=useState(initialState);
+    const [formState, setFormState] = useState(initialState);
     const [user, loading, error] = useAuthState(auth);
 
-    useEffect(()=>{
-        if(loading){
-          return;
+    useEffect(() => {
+        if (loading) {
+            return;
         }
-        else if(user){
-          location.href = '/';
+        else if (user) {
+            location.href = '/';
         }
-        else if(error){
-          console.log(error)
+        else if (error) {
+            console.log(error)
         }
-      },[user,loading,error]);
+    }, [user, loading, error]);
 
-    const handlechange = (e:any) => {
-        const {name,value} = e.target;
-        setFormState({...formState,[name]:value});
+    const handlechange = (e: any) => {
+        const { name, value } = e.target;
+        setFormState({ ...formState, [name]: value });
     }
 
-    const hanldeSubmit = (e:any)=>{
+    const hanldeSubmit = (e: any) => {
         e.preventDefault();
-        
+
         const email = formState.email;
         const password = formState.password;
 
-        if(email && password){
-            
-            signInWithEmailAndPassword(auth,email,password).then((user)=>{
+        if (email && password) {
+
+            signInWithEmailAndPassword(auth, email, password).then((user) => {
 
                 toast.success("Login successsfully");
 
-            }).catch((error=>{
+            }).catch((error => {
                 const errorMessage = error.message;
-                let errMsg=error.code.replace(/auth/g,'').replace(/[^a-zA-Z0-9]|\s\s+/g,' ').substring(1);
+                let errMsg = error.code.replace(/auth/g, '').replace(/[^a-zA-Z0-9]|\s\s+/g, ' ').substring(1);
                 let newMsg = errMsg[0].toUpperCase() + errMsg.substring(1);
                 toast.error(newMsg);
                 console.log(errorMessage);
             }))
 
 
-        }else{
+        } else {
             toast.error("Please fill up the form properly");
         }
 
     }
+
+    const handleReset = () => {
+        const email = formState.email;
+        console.log(email);
+        if (email && /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(email)) {
+            sendPasswordResetEmail(auth, email).then(() => {
+                toast.success("Email sent successfully");
+            }).catch((error) => {
+                const errorMessage = error.message;
+                let errMsg = error.code.replace(/auth/g, '').replace(/[^a-zA-Z0-9]|\s\s+/g, ' ').substring(1);
+                let newMsg = errMsg[0].toUpperCase() + errMsg.substring(1);
+                toast.error(newMsg);
+                console.log(errorMessage);
+            }
+            )
+        } else {
+            toast.error("Please enter a valid email");
+            const emailBox = document.querySelector('input[name*="email"]') as HTMLInputElement;
+            emailBox?.focus();
+        }
+    };
+
 
     return (
         <>
@@ -83,6 +105,7 @@ export default function Login() {
                         <input type="password" placeholder='Password' name="password" onChange={handlechange} required />
                     </div>
                     <button className={style.btn} type="submit">Login</button>
+                    <p className={style.red} onClick={handleReset}>Forget password?</p>
                     <p>Not Have an account? <Link href="/signup">Signup</Link></p>
                 </form>
             </div>
