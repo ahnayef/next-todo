@@ -7,7 +7,7 @@ import { FiTrash } from 'react-icons/fi';
 import { BiSolidEdit } from 'react-icons/bi';
 import { FaListUl } from 'react-icons/fa';
 
-export default function page() {
+export default function Page() {
 
     const [todo, setTodo] = useState([{
         title: "Test todo",
@@ -27,7 +27,7 @@ export default function page() {
     // Temp state
 
     const [tempTask, setTempTask] = useState("");
-    const [toUpdate, setTOUpdate] = useState("");
+    const [toUpdate, setToUpdate] = useState("");
 
 
     // Add Task
