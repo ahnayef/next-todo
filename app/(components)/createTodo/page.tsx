@@ -97,7 +97,7 @@ export default function Page() {
 
                                 <div className={style.tools}>
                                     <i title='Delete' onClick={() => deleteTask(item.id)}><FiTrash /></i>
-                                    <i title='Edit' onClick={() => setTOUpdate(item.id)}><BiSolidEdit /></i>
+                                    <i title='Edit' onClick={() => setToUpdate(item.id)}><BiSolidEdit /></i>
                                 </div>
                             </li>
                         )
