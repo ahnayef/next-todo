@@ -13,28 +13,30 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap'); */
 /* font-family: 'Shadows Into Light', cursive; */
 
-:root{
-    --background:#252A34;
-    --background-light:#3e4046;
-    --primary:#F6E444;
-    --primary-light:#eae672;
-    --secondary:#a8e063;
-    --text:#e2e6e5;
-    --red:#DC3545;
+:root {
+    --background: #252A34;
+    --background-light: #3e4046;
+    --primary: #F6E444;
+    --primary-light: #eae672;
+    --secondary: #a8e063;
+    --text: #e2e6e5;
+    --red: #DC3545;
+    --green: #30ce55;
+    --blue: #409bfd;
 }
 
 
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
-body{
+body {
     background-color: var(--background);
     color: var(--text);
 }
 
-a{
+a {
     text-decoration: none;
     color: var(--primary);
 }
@@ -54,8 +56,8 @@ a{
 
 @media only screen and (max-width: 425px) {
 
-    body{
-      opacity: 0;
+    body {
+        opacity: 0;
     }
 
 }
