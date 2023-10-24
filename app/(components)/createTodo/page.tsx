@@ -62,6 +62,12 @@ export default function Page() {
             return item;
         });
         setTodoState({ ...todoState, lists: newTodo });
+
+        setToUpdate({
+            id: "",
+            text: "",
+            done: false
+        });
     }
 
     const cancelUpdate = () => {
@@ -167,13 +173,14 @@ export default function Page() {
                                     <i title='Delete' onClick={() => deleteTask(item.id)}><FiTrash /></i>
 
 
-                                    {!item.done ? <i title='Edit' onClick={() =>{setToUpdate({
-                                        id: item.id,
-                                        text: item.text,
-                                        done: false
-                                    })
-                                    const target = document.querySelector('#updateT') as HTMLInputElement;
-                                   target?.focus();
+                                    {!item.done ? <i title='Edit' onClick={() => {
+                                        setToUpdate({
+                                            id: item.id,
+                                            text: item.text,
+                                            done: false
+                                        })
+                                        const target = document.querySelector('#updateT') as HTMLInputElement;
+                                        target?.focus();
                                     }}><BiSolidEdit /></i> : ''}
 
                                 </div>
@@ -183,7 +190,7 @@ export default function Page() {
                     {
                         todoState.lists.length > 0 ? <button onClick={saveTodo}> <FaSave />&nbsp;Save</button> : ""
                     }
-    
+
                 </ul>
             </div>
 
