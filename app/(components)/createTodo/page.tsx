@@ -143,7 +143,7 @@ export default function Page() {
                         </div>
 
                         <div>
-                            <input type="text" placeholder="Update Task" value={toUpdate && toUpdate.text} onChange={(e) => changeTask(e)} onKeyDown={handleUpdateEnter} disabled={toUpdate.id ? false : true} />
+                            <input id="updateT" type="text" placeholder="Update Task" value={toUpdate && toUpdate.text} onChange={(e) => changeTask(e)} onKeyDown={handleUpdateEnter} disabled={toUpdate.id ? false : true} />
 
                             <button onClick={updateTask}><i><FaCheck /></i></button>
 
@@ -167,11 +167,14 @@ export default function Page() {
                                     <i title='Delete' onClick={() => deleteTask(item.id)}><FiTrash /></i>
 
 
-                                    {!item.done ? <i title='Edit' onClick={() => setToUpdate({
+                                    {!item.done ? <i title='Edit' onClick={() =>{setToUpdate({
                                         id: item.id,
                                         text: item.text,
                                         done: false
-                                    })}><BiSolidEdit /></i> : ''}
+                                    })
+                                    const target = document.querySelector('#updateT') as HTMLInputElement;
+                                   target?.focus();
+                                    }}><BiSolidEdit /></i> : ''}
 
                                 </div>
                             </li>
