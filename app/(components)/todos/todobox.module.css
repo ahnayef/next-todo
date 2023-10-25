@@ -4,12 +4,26 @@
     transition: .25s ease;
     box-sizing: border-box;
     margin: 2em;
-
+    animation: zoomIn 0.4s ease-in-out;
 }
+
+
+@keyframes zoomIn {
+    from {
+      opacity: 0;
+      transform: scale3d(0.3, 0.3, 0.3);
+    }
+  
+    50% {
+      opacity: 1;
+    }
+  }
 
 .todoBox:hover {
     transform: rotate(5deg);
 }
+
+
 
 
 .todoBox .card {
