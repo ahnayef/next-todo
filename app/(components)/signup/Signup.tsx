@@ -11,13 +11,14 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/app/firebase"
 import { useAuthState } from "react-firebase-hooks/auth";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 
-const initialState: { name: string, email: string, password: string, confirmPassword: string } = {
+const initialState: { name: string, email: string, password: string, confirmPassword: string, created:any} = {
   name: "",
   email: "",
   password: "",
-  confirmPassword: ""
+  confirmPassword: "",
+  created:""
 }
 
 
@@ -67,7 +68,8 @@ export default function Signup() {
             await setDoc(doc(db, "users", myUser.user.uid), {
               name: name,
               email: myUser.user.email,
-              id: myUser.user.uid
+              id: myUser.user.uid,
+              created: serverTimestamp()
             }).then(() => {
               toast.success("Created account successfully!");
               console.log("Account created!");
@@ -125,7 +127,7 @@ export default function Signup() {
             <input type="password" placeholder='Confirm Password' name="confirmPassword" onChange={handleChange} required />
           </div>
           <button className={style.btn} type="submit">Sign Up</button>
-          <p>Already Have account? <Link href="/login">Login</Link></p>
+          <p>Already have account? <Link href="/login">Login</Link></p>
         </form>
       </div>
     </>

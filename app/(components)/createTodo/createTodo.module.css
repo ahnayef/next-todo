@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    font-family: 'Itim', cursive;
 }
 
 .crTodoMain .done {
@@ -151,7 +152,7 @@
     color: var(--blue);
 }
 
-.crTodoMain .actionArea div {
+.crTodoMain .actionArea .inputArea {
     margin: 0.5em;
     width: 100%;
 }
@@ -183,16 +184,9 @@
     font-size: 1.5em;
     font-weight: bold;
     margin: 0.5em;
-    padding: 0.3em;
-    cursor: pointer;
     font-family: 'Courgette', cursive;
     font-size: 1em;
     font-weight: 700;
-    text-decoration: none;
-    color: var(--background);
-}
-
-.crTodoMain button {
     background-color: var(--primary);
     border: 2px solid var(--background-light);
     box-shadow: var(--background-light) 4px 4px 0 0;
@@ -222,4 +216,86 @@
 .crTodoMain button:active {
     box-shadow: var(--background) 2px 2px 0 0;
     transform: translate(2px, 2px);
+}
+
+
+
+/* new */
+
+
+
+.privacyArea {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0.5em;
+}
+
+.privacyArea div {
+    margin: 0 0.5em;
+}
+
+.b2{
+    margin-left: 1em;
+}
+
+.tBtn {
+    position: relative;
+    padding: 0.7em 1.5em;
+    overflow: hidden;
+    background-color: var(--background-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.2em;
+    font-family: 'Itim', cursive;
+    cursor: pointer;
+}
+
+
+.knobs {
+    z-index: 2;
+}
+
+
+
+/* Button toggle */
+.buttonTog .knobs:before,
+.buttonTog .knobs span {
+    content: '❌';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 50%;
+    height: 100%;
+    color: var(--text);
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.buttonTog .knobs:before {
+    transition: 0.3s ease all, left 0.5s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+    z-index: 2;
+}
+
+.buttonTog .knobs span {
+    background-color: var(--red);
+    border-radius: 2px;
+    transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+    z-index: 1;
+}
+
+.buttonTog .checkbox:checked+.knobs:before {
+    content: '✔️';
+    left: 50%;
+    color: var(--background);
+}
+
+.buttonTog .checkbox:checked+.knobs span {
+    left: 50%;
+    background-color: var(--primary);
 }

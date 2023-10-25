@@ -35,6 +35,9 @@ export default function Login() {
         }
     }, [user, loading, error]);
 
+
+
+    
     const handlechange = (e: any) => {
         const { name, value } = e.target;
         setFormState({ ...formState, [name]: value });
@@ -105,8 +108,8 @@ export default function Login() {
                         <input type="password" placeholder='Password' name="password" onChange={handlechange} required />
                     </div>
                     <button className={style.btn} type="submit">Login</button>
-                    <p className={style.red} onClick={handleReset}>Forget password?</p>
-                    <p>Not Have an account? <Link href="/signup">Signup</Link></p>
+                    <p className={style.red} onClick={handleReset}>Forget password?</p><br/>
+                    <p>Don&#39;t have an account? <Link href="/signup">Signup</Link></p>
                 </form>
             </div>
         </>

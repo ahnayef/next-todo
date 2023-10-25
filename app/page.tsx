@@ -92,7 +92,7 @@ export default function Home() {
           <div className={style.todoBox}>
             <h1>Todo</h1>
             <p>Small steps, big impact.</p>
-            <Link href="/todo" className={style.btn}>Create your first todo</Link>
+            <Link href="/createTodo" className={style.btn}>Create your first todo</Link>
             <i className="icon-check"></i>
           </div>
         </div>
