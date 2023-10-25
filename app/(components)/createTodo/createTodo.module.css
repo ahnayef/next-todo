@@ -262,7 +262,7 @@
 /* Button toggle */
 .buttonTog .knobs:before,
 .buttonTog .knobs span {
-    content: '❌';
+    content: 'No';
     position: absolute;
     top: 0px;
     left: 0px;
@@ -290,7 +290,7 @@
 }
 
 .buttonTog .checkbox:checked+.knobs:before {
-    content: '✔️';
+    content: 'Yes';
     left: 50%;
     color: var(--background);
 }
