@@ -8,7 +8,7 @@ export default function TodoBox() {
     <div className={style.card}>
       <div className={style.heading}>
         <i><FaClipboardList /></i>
-        <p>Title</p>
+        <p>Title Title TitleTitle Title</p>
       </div>
 
       <div className={style.btnArea}>

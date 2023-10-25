@@ -79,7 +79,7 @@ a {
     touch-action: manipulation;
 }
 
-.btn:hover {
+.btn:hover, .btn.del:hover {
     background-color: var(--text);
     box-shadow: var(--background) 1px 1px 0 0;
     transform: translate(2px, 2px);
@@ -87,7 +87,7 @@ a {
 
 }
 
-.btn:active {
+.btn:active,.btn.del:active {
     box-shadow: var(--background) 2px 2px 0 0;
     transform: translate(2px, 2px);
 }
@@ -95,6 +95,8 @@ a {
 .btn.del{
     background-color: var(--red);
 }
+
+
 
 
 /* Disable mobile */

@@ -86,9 +86,13 @@
     align-items: center;
     flex-direction: column;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.15em;
 }
 
+.todoBox .heading p {
+    padding: 0.2em;
+    text-align: center;
+}
 .todoBox .heading i {
     font-size: 1.5em;
     margin-bottom: 0.5em;

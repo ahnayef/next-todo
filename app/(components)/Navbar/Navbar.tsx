@@ -12,6 +12,7 @@ import { auth } from "@/app/firebase"
 import { signOut } from "firebase/auth"
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css';
+import { useEffect, useRef, useState } from "react"
 
 export default function Navbar() {
 
@@ -20,20 +21,31 @@ export default function Navbar() {
     const [user] = useAuthState(auth);
 
 
+    const [navheight, setNavHeight] = useState(0);
+    const getHeight = useRef(null);
+
+    useEffect(() => {
+        if (getHeight.current) {
+            setNavHeight((getHeight.current as HTMLDivElement).clientHeight);
+        }
+    }, []);
+
     const logOut = () => {
-        signOut(auth).then(() => {
-            toast.success("Logged out");
-        }).catch((error) => {
-            toast.error("Something went wrong");
-            console.log(error)
-        });
-    }
+        signOut(auth)
+            .then(() => {
+                toast.success("Logged out");
+            })
+            .catch((error) => {
+                toast.error("Something went wrong");
+                console.log(error);
+            });
+    };
 
 
     return (
         <>
             <ToastContainer theme="dark" />
-            <nav className={style.navMain}>
+            <nav className={style.navMain}  ref={getHeight}>
                 <div className={style.logo}>
                     <Link href="/"> <i className="icon-check"></i> Todo</Link>
                 </div>
@@ -56,6 +68,7 @@ export default function Navbar() {
                     </div>
                 </div>
             </nav>
+            <div style={{height:navheight+20}} ></div>
         </>
     )
 }
