@@ -5,7 +5,7 @@ import style from "./createTodo.module.css"
 
 import { FiTrash } from 'react-icons/fi';
 import { BiSolidEdit } from 'react-icons/bi';
-import { FaCheck, FaListUl, FaPlus, FaSave, FaTimes } from 'react-icons/fa';
+import { FaCheck, FaCopy, FaListUl, FaPlus, FaSave, FaTimes } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -15,7 +15,7 @@ import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 
 
 
-const initialState: { tid:any,title: any, author: any, private: boolean, lists: Array<any> } = {
+const initialState: { tid: any, title: any, author: any, private: boolean, lists: Array<any> } = {
     tid: "",
     title: "",
     author: "",
@@ -44,7 +44,19 @@ export default function Page() {
 
 
     const [todoState, setTodoState] = useState(initialState);
+    const [todoProgress, setTodoProgress] = useState("0%");
 
+
+    //Check progress
+    useEffect(() => {
+        if (todoState.lists.length > 0) {
+            let done = todoState.lists.filter((item: any) => item.done === true);
+            let progress = (done.length / todoState.lists.length) * 100;
+            setTodoProgress(progress + "%");
+        } else {
+            setTodoProgress("0%");
+        }
+    }, [todoState.lists]);
 
     // Temp state
 
@@ -157,25 +169,25 @@ export default function Page() {
                 author: user?.uid,
                 private: todoState.private,
                 title: todoState.title,
-                lists: todoState.lists,     
+                lists: todoState.lists,
             }
-        addDoc(collection(db, "users",`${user?.uid}`,"todos"),todo).then((docRef) => {
-            updateDoc(doc(db, "users",`${user?.uid}`,"todos",docRef.id),{
-                tid:docRef.id
-            }).then(()=>{
-                toast.success("Todo saved successfully!");
-                setTodoState(initialState);
-                location.href = '/todo';
-            }).catch((err) => {
-                toast.error("Error adding tid!");
-                console.log(err);
-            })
-        }
-        ).catch((error) => {
-            toast.error("Error saving todo!");
-            console.error("Error adding document: ", error);
-        });
-    
+            addDoc(collection(db, "users", `${user?.uid}`, "todos"), todo).then((docRef) => {
+                updateDoc(doc(db, "users", `${user?.uid}`, "todos", docRef.id), {
+                    tid: docRef.id
+                }).then(() => {
+                    toast.success("Todo saved successfully!");
+                    setTodoState(initialState);
+                    location.href = '/todo';
+                }).catch((err) => {
+                    toast.error("Error adding tid!");
+                    console.log(err);
+                })
+            }
+            ).catch((error) => {
+                toast.error("Error saving todo!");
+                console.error("Error adding document: ", error);
+            });
+
 
         } else {
             const target = document.querySelector("#tTitle") as HTMLInputElement;
@@ -204,9 +216,9 @@ export default function Page() {
                         <div className={style.inputArea}>
                             <input id="updateT" type="text" placeholder="Update Task" value={toUpdate && toUpdate.text} onChange={(e) => changeTask(e)} onKeyDown={handleUpdateEnter} disabled={toUpdate.id ? false : true} />
 
-                            <button onClick={updateTask}><i><FaCheck /></i></button>
+                            <button onClick={updateTask} disabled={toUpdate.id ? false : true} ><i><FaCheck /></i></button>
 
-                            <button onClick={cancelUpdate}><FaTimes /></button>
+                            <button onClick={cancelUpdate} disabled={toUpdate.id ? false : true} ><FaTimes /></button>
                         </div>
 
                         <div className={style.privacyArea}>
@@ -216,13 +228,13 @@ export default function Page() {
                             </button> */}
                             <label htmlFor="tgBtn">Private: </label>
                             <label htmlFor='tgBtn' className={`${style.tBtn} ${style.b2} ${style.buttonTog}`}>
-                                <input type="checkbox" className={style.checkbox} id='tgBtn' onChange={()=>{
+                                <input type="checkbox" className={style.checkbox} id='tgBtn' onChange={() => {
                                     setTodoState({ ...todoState, private: !todoState.private })
                                     console.log(todoState.private);
-                                }} hidden/>
-                                    <div className={style.knobs}>
-                                        <span></span>
-                                    </div>
+                                }} hidden />
+                                <div className={style.knobs}>
+                                    <span></span>
+                                </div>
                             </label>
 
                         </div>
@@ -262,9 +274,11 @@ export default function Page() {
                         )
                     })}
                     {
-                        todoState.lists.length > 0 ? <button onClick={saveTodo}> <FaSave />&nbsp;Save</button> : ""
+                        todoState.lists.length > 0 ? <><button onClick={saveTodo}> <FaSave />&nbsp;Save</button> <button> <FaCopy />&nbsp;Duplicate</button> </> : ""
                     }
-
+                    <div className={style.progress}>
+                        <div className={style.bar} style={{ width: `${todoProgress}` }}></div>
+                    </div>
                 </ul>
             </div>
 

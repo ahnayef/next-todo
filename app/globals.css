@@ -51,8 +51,50 @@ a {
 }
 
 
+.btn {
+    position: relative;
+    background-color: transparent;
+    border: none;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0.5em;
+    font-family: 'Courgette', cursive;
+    font-size: 1em;
+    font-weight: bold;
+    background-color: var(--primary);
+    border: 2px solid var(--background-light);
+    box-shadow: var(--background-light) 4px 4px 0 0;
+    color: var(--background);
+    cursor: pointer;
+    display: inline-block;
+    /* font-weight: 600; */
+    font-size: 0.8em;
+    border-radius: 1em;
+    padding: 0.3em 0.4em;
+    /* padding: 0.3em; */
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
 
+.btn:hover {
+    background-color: var(--text);
+    box-shadow: var(--background) 1px 1px 0 0;
+    transform: translate(2px, 2px);
+    transition: 0.1s;
 
+}
+
+.btn:active {
+    box-shadow: var(--background) 2px 2px 0 0;
+    transform: translate(2px, 2px);
+}
+
+.btn.del{
+    background-color: var(--red);
+}
 
 
 /* Disable mobile */

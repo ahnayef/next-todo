@@ -1,0 +1,104 @@
+.todoBox {
+    width: 12em;
+    /* max-width: 400px; */
+    transition: .25s ease;
+    box-sizing: border-box;
+    margin: 2em;
+
+}
+
+.todoBox:hover {
+    transform: rotate(5deg);
+}
+
+
+.todoBox .card {
+    aspect-ratio: 3 / 2;
+    border: 1.5px solid;
+    background-color: var(--background);
+    position: relative;
+    transition: .15s ease;
+    cursor: pointer;
+    padding: 5% 5% 5% 5%;
+}
+
+
+
+.todoBox .card:before,
+.todoBox .card:after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border: 1.5px solid;
+    background-color: var(--background);
+    transform-origin: center center;
+    z-index: -1;
+    transition: .15s ease;
+    top: 0;
+    left: 0;
+}
+
+.todoBox .card:before {
+    box-sizing: border-box;
+    transform: translatey(-2%) rotate(-6deg);
+}
+
+.todoBox .card:after {
+    box-sizing: border-box;
+    transform: translatey(2%) rotate(6deg);
+}
+
+
+.todoBox:hover .card:before {
+    transform: translatey(-2%) rotate(-4deg);
+}
+
+.todoBox:hover .card:after {
+    transform: translatey(2%) rotate(4deg);
+}
+
+
+.todoBox .heading {
+    width: 100%;
+    border: 1.5px solid;
+    background-color: var(--primary-light);
+    color: var(--background);
+    aspect-ratio: 1 / 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.todoBox .heading i {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+    color: var(--background);
+}
+
+
+.card .btnArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card .progress {
+    width: 100%;
+    margin-top: 0.5em;
+    background-color: var(--background-light);
+    border-radius: 0.3em;
+}
+
+.card .progress .bar {
+    height: 0.5em;
+    background-color: var(--primary);
+    border-radius: 0.3em;
+    transition: 0.5s;
+
+}
