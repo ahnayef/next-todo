@@ -177,7 +177,7 @@ export default function Page() {
                 }).then(() => {
                     toast.success("Todo saved successfully!");
                     setTodoState(initialState);
-                    location.href = '/todo';
+                    location.href = '/todos';
                 }).catch((err) => {
                     toast.error("Error adding tid!");
                     console.log(err);
