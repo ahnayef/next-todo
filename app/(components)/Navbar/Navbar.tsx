@@ -41,7 +41,7 @@ export default function Navbar() {
                 <div className={style.navIcons}>
                     <ul>
                         <li><Link href="/" className={path === "/" ? "active" : ""}> <i><AiFillHome /></i> Home </Link></li>
-                        <li><Link href="/todo" className={path === "/todo" ? "active" : ""}> <i><IoIosCheckbox /></i> Todo </Link></li>
+                        <li><Link href="/todos" className={path === "/todos" ? "active" : ""}> <i><IoIosCheckbox /></i> Todos </Link></li>
                         <li><Link href="/about" className={path === "/about" ? "active" : ""}> <i><FaInfoCircle /></i> About </Link></li>
                         <li><Link href="/contact" className={path === "/contact" ? "active" : ""}> <i><FaEnvelope /></i> Contact</Link></li>
                     </ul>

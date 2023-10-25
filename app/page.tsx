@@ -78,7 +78,7 @@ export default function Home() {
           {
             user ? <div className={style.welcome}>
               <h1>Welcome back, <b>{uname}</b></h1>
-              <Link href="/todo" className={style.btn}>My todos</Link>
+              <Link href="/todos" className={style.btn}>My todos</Link>
               <button className={`${style.btn} ${style.red}`} onClick={logOut}>Logout</button>
             </div> : <>
               <Link href="/login" className={style.btn}>Log in</Link>
