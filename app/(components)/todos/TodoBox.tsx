@@ -11,9 +11,10 @@ export default function TodoBox(props: {
   tdTitle: string,
   progress: string,
   tid: string,
+  author: string
 }) {
 
-  const { tdTitle, progress, tid } = props;
+  const { author, tdTitle, progress, tid } = props;
 
 
   const delTodo = (tid: string) => {
@@ -33,7 +34,7 @@ export default function TodoBox(props: {
           </div>
 
           <div className={style.btnArea}>
-            <Link href={`todo/${tid}`} className='btn'><FaBook /> Open</Link>
+            <Link href={`todo/${author}!${tid}`} className='btn'><FaBook /> Open</Link>
             <button onClick={() => { delTodo(tid) }} className='btn del'><FaTrash /> Delete</button>
           </div>
           <div className={style.progress}>

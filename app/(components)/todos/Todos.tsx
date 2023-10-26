@@ -14,12 +14,12 @@ import Link from 'next/link';
 
 export default function Todos() {
 
-  const [user, loading, error] = useAuthState(auth);
-
+  
   const [isLoaded, setIsloaded] = useState(false);
-
-  const [isEmpty, setIsEmpty] = useState(true);
-
+  
+  const [isEmpty, setIsEmpty] = useState(false);
+  
+  const [user, loading, error] = useAuthState(auth);
   useEffect(() => {
     if (loading) {
       return;
@@ -44,24 +44,25 @@ export default function Todos() {
         const ref = collection(db, "users", `${user?.uid}`, "todos");
         const docSanp = await getDocs(ref);
 
-        if (!(docSanp.empty)) {
-          let publicTodos: any = [];
-          let privateTodos: any = [];
 
-          docSanp.forEach((doc) => {
-            if (doc.data().private) {
-              privateTodos.push(doc.data());
-            } else {
-              publicTodos.push(doc.data());
-            }
-          });
+        let publicTodos: any = [];
+        let privateTodos: any = [];
 
-          setPublicTodos(publicTodos);
-          setPrivateTodos(privateTodos);
-          setIsEmpty(false);
-          setIsloaded(true);
-        } else {
-          setIsloaded(true);
+        docSanp.forEach((doc) => {
+          if (doc.data().private) {
+            privateTodos.push(doc.data());
+          } else {
+            publicTodos.push(doc.data());
+          }
+        });
+
+        setPublicTodos(publicTodos);
+        setPrivateTodos(privateTodos);
+
+        setIsloaded(true);
+
+        if ((docSanp.empty)) {
+          setIsEmpty(true);
         }
       }
 
@@ -74,40 +75,46 @@ export default function Todos() {
   return (
     <>
       <div className={style.todosMain}>
-        <h1>Your todos</h1>
-        <Link href="/createTodo" className='btn' style={{ fontSize: "1.01em" }}>Creare a new Todo</Link>
 
-        {!isEmpty ?
+        {isLoaded ?
+          <>
+            <h1>Your todos</h1>
+            <Link href="/createTodo" className='btn' style={{ fontSize: "1.01em" }}>Creare a new Todo</Link>
+          </> : null}
+
+        {isLoaded ?
 
           <div className={style.toboxArea}>
             <h2>Public:</h2>
             <hr />
-            <div className={style.public}>
+            {publicTodos.length === 0 ? <h2 style={{ color: "var(--red)" }}>No public todos</h2> :
+              <div className={style.public}>
+                {
+                  publicTodos.map((todo: any) => {
+                    const progress = Math.round((todo.lists.filter((list: any) => list.done).length / todo.lists.length) * 100).toString();;
+                    return <TodoBox tdTitle={todo.title} progress={progress} tid={todo.tid} author={todo.author} key={todo.tid} />
+                  })
+                }
 
-              {
-                publicTodos.map((todo: any) => {
-                  const progress = Math.round((todo.lists.filter((list: any) => list.done).length / todo.lists.length) * 100).toString();;
-                  return <TodoBox tdTitle={todo.title} progress={progress} tid={todo.tid} key={todo.tid} />
-                })
-              }
-
-            </div>
+              </div>}
             <h2>Private:</h2>
             <hr />
-            <div className={style.private}>
+            {privateTodos.length === 0 ? <h2 style={{ color: "var(--red)" }}>No private todos</h2> :
+              <div className={style.private}>
 
-              {
-                privateTodos.map((todo: any) => {
-                  const progress = ((todo.lists.filter((list: any) => list.done).length / todo.lists.length) * 100).toString();
-                  return <TodoBox tdTitle={todo.title} progress={progress} tid={todo.tid} key={todo.tid} />
-                })
-              }
+                {
+                  privateTodos.map((todo: any) => {
+                    const progress = ((todo.lists.filter((list: any) => list.done).length / todo.lists.length) * 100).toString();
+                    return <TodoBox tdTitle={todo.title} progress={progress} tid={todo.tid} author={todo.author} key={todo.tid} />
+                  })
+                }
 
-            </div>
+              </div>}
 
           </div>
-          : <h2>You don&#39;t have any todos yet!</h2>}
-        {!isLoaded ? <div className="loader"></div> : null}
+          : <div className="loader"></div>}
+
+        {isEmpty ? <h2>You don&#39;t have any todos yet!</h2> : null}
 
 
       </div>

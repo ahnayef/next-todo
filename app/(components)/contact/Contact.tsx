@@ -30,7 +30,7 @@ export default function Contact() {
     const handleSubmit =(e:any)=>{
         e.preventDefault();
         setLoading(true);
-        console.log(formState);
+        
         axios.post('/api/sendTgMsg', formState).then(res => {
             setLoading(false);
             toast.success(res.data.message);
