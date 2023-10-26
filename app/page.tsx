@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Head from 'next/head';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from './firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { signOut } from 'firebase/auth';
@@ -16,7 +16,7 @@ export default function Home() {
 
   const [user, loading, error] = useAuthState(auth);
   const [uname, setUname] = useState("");
-
+  const [noTodo,setNoTodo] = useState(true);
 
   const logOut = () => {
     signOut(auth).then(() => {
@@ -47,10 +47,21 @@ export default function Home() {
           data.push(docSnap.data());
           setUname(data[0]?.name);
         } else {
-          toast.error("No such document");
+          toast.error("Couldn't find user name");
         }
+
+        let todoRef = collection(db,"users",`${user.uid}`,"todos");
+        const todoSnap = await getDocs(todoRef);
+        
+        if(!(todoSnap.empty)){
+          setNoTodo(false);
+        }
+
       }
       loadData();
+
+
+
     }
   }, [user]);
 
@@ -92,7 +103,7 @@ export default function Home() {
           <div className={style.todoBox}>
             <h1>Todo</h1>
             <p>Small steps, big impact.</p>
-            <Link href="/createTodo" className={style.btn}>Create your first todo</Link>
+            <Link href="/createTodo" className={style.btn}>{noTodo ? "Create your first todo" : "Create a new todo"}</Link>
             <i className="icon-check"></i>
           </div>
         </div>

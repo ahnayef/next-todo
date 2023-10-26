@@ -230,7 +230,6 @@ export default function Page() {
                             <label htmlFor='tgBtn' className={`${style.tBtn} ${style.b2} ${style.buttonTog}`}>
                                 <input type="checkbox" className={style.checkbox} id='tgBtn' onChange={() => {
                                     setTodoState({ ...todoState, private: !todoState.private })
-                                    console.log(todoState.private);
                                 }} hidden />
                                 <div className={style.knobs}>
                                     <span></span>

@@ -8,6 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '@/app/firebase';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { toast } from 'react-toastify';
+import Link from 'next/link';
 
 
 
@@ -71,7 +72,7 @@ export default function Todos() {
     <>
       <div className={style.todosMain}>
         <h1>Your todos</h1>
-
+        <Link href="/createTodo" className='btn' style={{fontSize:"1.1em"}}>Create a new todo</Link>
         {
           !isLoaded ? <div className="loader"></div> : 
           
