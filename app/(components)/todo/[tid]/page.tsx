@@ -25,6 +25,7 @@ export default function Page({ params }: { params: { tid: string } }) {
   const { tid } = params;
   const [todoState, setTodoState] = useState(initialState);
   const [todoProgress, setTodoProgress] = useState("0%");
+  const [owner, setOwner] = useState(false);
 
   const [user, loading, error] = useAuthState(auth);
   useEffect(() => {
@@ -43,19 +44,26 @@ export default function Page({ params }: { params: { tid: string } }) {
 
 
   // Load todo from db using tid
-  
-  useEffect(()=>{
 
+  useEffect(() => {
 
-    const getTodo = ()=>{
-      axios.post("/api/getSingleTodo",{tid:tid}).then((res)=>{
-        console.log(res.data());
-      }).catch(err => console.log(err))
+    const author = tid.split("!")[0];
+    const utid = tid.split("!")[1];
+
+    if (user?.uid === author) {
+      setOwner(true);
     }
 
-    getTodo();
+    const getTodo = () => {
+      axios.post("/api/getSingleTodo", { user: user?.uid, author: author, tid: utid }).then((res) => {
+        const todo = res.data;
+        setTodoState(todo);
+      }).catch(err => toast.error(err.response.data))
+    }
 
-  },[tid]);
+    user && getTodo();
+
+  }, [tid, user]);
 
 
 
@@ -202,72 +210,80 @@ export default function Page({ params }: { params: { tid: string } }) {
         <h1>Todo</h1>
 
         <ul>
-          {todoState ? <h1 className={style.title}> <i><FaListUl /></i> <input onChange={handleTitle} value={todoState?.title} id='tTitle' placeholder='Todo Title' /></h1> : ""}
+          {todoState ? <h1 className={style.title}> <i><FaListUl /></i> <input onChange={handleTitle} value={todoState?.title} id='tTitle' placeholder='Todo Title' disabled={owner ? false : true} /></h1> : ""}
 
-          <div className={style.actionArea}>
+          {owner ?
+            <div className={style.actionArea}>
 
-            <div className={style.inputArea}>
-              <input type="text" placeholder="Add Task" value={tempTask} onChange={(e) => setTempTask(e.target.value)} onKeyDown={handleAddEnter} />
-              <button onClick={addTast}><i><FaPlus /></i></button>
-            </div>
+              <div className={style.inputArea}>
+                <input type="text" placeholder="Add Task" value={tempTask} onChange={(e) => setTempTask(e.target.value)} onKeyDown={handleAddEnter} />
+                <button onClick={addTast}><i><FaPlus /></i></button>
+              </div>
 
-            <div className={style.inputArea}>
-              <input id="updateT" type="text" placeholder="Update Task" value={toUpdate && toUpdate.text} onChange={(e) => changeTask(e)} onKeyDown={handleUpdateEnter} disabled={toUpdate.id ? false : true} />
+              <div className={style.inputArea}>
+                <input id="updateT" type="text" placeholder="Update Task" value={toUpdate && toUpdate.text} onChange={(e) => changeTask(e)} onKeyDown={handleUpdateEnter} disabled={toUpdate.id ? false : true} />
 
-              <button onClick={updateTask} disabled={toUpdate.id ? false : true} ><i><FaCheck /></i></button>
+                <button onClick={updateTask} disabled={toUpdate.id ? false : true} ><i><FaCheck /></i></button>
 
-              <button onClick={cancelUpdate} disabled={toUpdate.id ? false : true} ><FaTimes /></button>
-            </div>
+                <button onClick={cancelUpdate} disabled={toUpdate.id ? false : true} ><FaTimes /></button>
+              </div>
 
-            <div className={style.privacyArea}>
-              <label htmlFor="tgBtn">Private: </label>
-              <label htmlFor='tgBtn' className={`${style.tBtn} ${style.b2} ${style.buttonTog}`}>
-                <input type="checkbox" className={style.checkbox} id='tgBtn' onChange={() => {
-                  setTodoState({ ...todoState, private: !todoState.private })
-                }} hidden />
-                <div className={style.knobs}>
-                  <span></span>
-                </div>
-              </label>
+              <div className={style.privacyArea}>
+                <label htmlFor="tgBtn">Private: </label>
+                <label htmlFor='tgBtn' className={`${style.tBtn} ${style.b2} ${style.buttonTog}`}>
+                  <input type="checkbox" className={style.checkbox} id='tgBtn' onChange={() => {
+                    setTodoState({ ...todoState, private: !todoState.private })
+                  }} hidden />
+                  <div className={style.knobs}>
+                    <span></span>
+                  </div>
+                </label>
 
-            </div>
+              </div>
 
-          </div>
+            </div> : null}
 
           {todoState && todoState.lists.sort((a, b) => a.id > b.id ? 1 : -1).map((item: any, index: any) => {
             return (
               <li key={item.id} className={item.done ? style.done : ""}>
+
                 <div className={style.index}>
-                  <p title='Mark done' onClick={() => markDone(item.id)}>
-                  </p>
+                  {owner ?
+                    <p title='Mark done' onClick={() => markDone(item.id)}>
+                    </p>
+                    : <p>{index + 1}</p>}
+
                 </div>
+
                 <p className={style.text}>
                   {item.text}
                 </p>
 
-                <div className={style.tools}>
-                  <i title='Delete' onClick={() => deleteTask(item.id)}><FiTrash /></i>
+                {owner ?
+                  <div className={style.tools}>
+                    <i title='Delete' onClick={() => deleteTask(item.id)}><FiTrash /></i>
 
 
-                  {!item.done ? <i title='Edit' onClick={() => {
-                    setToUpdate({
-                      id: item.id,
-                      text: item.text,
-                      done: false
-                    })
+                    {!item.done ? <i title='Edit' onClick={() => {
+                      setToUpdate({
+                        id: item.id,
+                        text: item.text,
+                        done: false
+                      })
 
-                    const target = document.querySelector('#updateT') as HTMLInputElement;
-                    target.disabled = false;
-                    target?.focus();
+                      const target = document.querySelector('#updateT') as HTMLInputElement;
+                      target.disabled = false;
+                      target?.focus();
 
-                  }}><BiSolidEdit /></i> : ''}
+                    }}><BiSolidEdit /></i> : ''}
 
-                </div>
+                  </div>
+                  : null}
               </li>
             )
           })}
           {
-            todoState.lists.length > 0 ? <><button onClick={saveTodo}> <FaSave />&nbsp;Save</button> <button> <FaCopy />&nbsp;Duplicate</button> </> : ""
+            todoState.lists.length > 0 ? <>{owner ? <button onClick={saveTodo}> <FaSave />&nbsp;Save</button> : null} <button> <FaCopy />&nbsp;Duplicate</button> </> : ""
           }
           <div className={style.progress}>
             <div className={style.bar} style={{ width: `${todoProgress}` }}></div>
