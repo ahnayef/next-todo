@@ -106,7 +106,7 @@ export default function Todos() {
             </div>
 
           </div>
-          : <h2>You don't have any todos yet!</h2>}
+          : <h2>You don&#39;t have any todos yet!</h2>}
         {!isLoaded ? <div className="loader"></div> : null}
 
 
