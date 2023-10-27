@@ -1,20 +1,22 @@
 import React from 'react'
-import style from "./todobox.module.css"
 import { FaBook, FaClipboardList, FaTrash } from 'react-icons/fa';
 import Link from 'next/link';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { auth, db } from '@/app/firebase';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
+import style from "../todos/todobox.module.css"
 
-export default function TodoBox(props: {
+export default function PtodoBox(props: {
   tdTitle: string,
   progress: string,
   tid: string,
-  author: string
+  author: string,
+  isOwner: boolean
 }) {
 
-  const { author, tdTitle, progress, tid } = props;
+  const { author, tdTitle, progress, tid, isOwner } = props;
+
 
 
   const delTodo = (tid: string) => {
@@ -34,8 +36,8 @@ export default function TodoBox(props: {
           </div>
 
           <div className={style.btnArea}>
-            <Link href={`todo/${author}!${tid}`} className='btn'><FaBook /> Open</Link>
-            <button onClick={() => { delTodo(tid) }} className='btn del'><FaTrash /> Delete</button>
+            <Link href={`/todo/${author}!${tid}`} className='btn'><FaBook /> Open</Link>
+            {isOwner ? <button onClick={() => { delTodo(tid) }} className='btn del'><FaTrash /> Delete</button> : null}
           </div>
           <div className={style.progress}>
             <div className={style.bar} style={{ width: `${progress}%` }}></div>

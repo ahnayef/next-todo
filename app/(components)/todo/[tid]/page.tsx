@@ -28,6 +28,7 @@ export default function Page({ params }: { params: { tid: string } }) {
   const { tid } = params;
   const author = tid.split("!")[0];
   const utid = tid.split("!")[1];
+  
   const [todoState, setTodoState] = useState(initialState);
   const [todoProgress, setTodoProgress] = useState("0%");
   const [isOwner, setISOwner] = useState(false);

@@ -14,11 +14,11 @@ import Link from 'next/link';
 
 export default function Todos() {
 
-  
+
   const [isLoaded, setIsloaded] = useState(false);
-  
+
   const [isEmpty, setIsEmpty] = useState(false);
-  
+
   const [user, loading, error] = useAuthState(auth);
   useEffect(() => {
     if (loading) {
@@ -61,7 +61,7 @@ export default function Todos() {
 
         setIsloaded(true);
 
-        if ((docSanp.empty)) {
+        if (docSanp.empty) {
           setIsEmpty(true);
         }
       }
@@ -91,7 +91,7 @@ export default function Todos() {
               <div className={style.public}>
                 {
                   publicTodos.map((todo: any) => {
-                    const progress = Math.round((todo.lists.filter((list: any) => list.done).length / todo.lists.length) * 100).toString();;
+                    const progress = ((todo.lists.filter((list: any) => list.done).length / todo.lists.length) * 100).toString();
                     return <TodoBox tdTitle={todo.title} progress={progress} tid={todo.tid} author={todo.author} key={todo.tid} />
                   })
                 }
