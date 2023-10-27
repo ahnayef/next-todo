@@ -4,7 +4,7 @@ import { auth, db } from "@/app/firebase";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { BiSolidEdit } from "react-icons/bi";
-import { FaCheck, FaCopy, FaListUl, FaPlus, FaSave, FaTimes } from "react-icons/fa";
+import { FaCheck, FaCopy, FaLink, FaListUl, FaPlus, FaSave, FaShareAlt, FaTimes } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import style from "./todo.module.css"
@@ -14,11 +14,11 @@ import { doc, updateDoc } from "firebase/firestore";
 import Link from "next/link";
 
 
-const initialState: { tid: any, title: any, author: any,authorName:string, private: boolean, lists: Array<any> } = {
+const initialState: { tid: any, title: any, author: any, authorName: string, private: boolean, lists: Array<any> } = {
   tid: "",
   title: "",
   author: "",
-  authorName:"",
+  authorName: "",
   private: false,
   lists: []
 }
@@ -31,8 +31,8 @@ export default function Page({ params }: { params: { tid: string } }) {
   const [todoState, setTodoState] = useState(initialState);
   const [todoProgress, setTodoProgress] = useState("0%");
   const [isOwner, setISOwner] = useState(false);
-  const [copyData,setCopyData]=useState("");
-  
+  const [copyData, setCopyData] = useState("");
+
   const [user, loading, error] = useAuthState(auth);
   useEffect(() => {
     if (loading) {
@@ -295,12 +295,26 @@ export default function Page({ params }: { params: { tid: string } }) {
               </li>
             )
           })}
-          {
-            todoState.lists.length > 0 ? <>{isOwner ? <button onClick={saveTodo}> <FaSave />&nbsp;Save</button> : null} <Link href={`/createTodo?datas=${copyData}`}><FaCopy />&nbsp;Duplicate</Link> </> : ""
-          }
           <div className={style.progress}>
             <div className={style.bar} style={{ width: `${todoProgress}` }}></div>
           </div>
+          {
+            todoState.lists.length > 0 ? <>{isOwner ? <button onClick={saveTodo}> <FaSave />&nbsp;Save</button> : null} <div className={style.regularArea}>
+              <Link href={`/createTodo?datas=${copyData}`}><FaCopy />&nbsp;Duplicate</Link>
+              <button onClick={() => {
+                navigator.clipboard.writeText(`${location.origin}/todo/${tid}`);
+                navigator.vibrate(200);
+                toast.success("Link copied to clipboard");
+              }}><FaLink />&nbsp;Copy Link</button>
+              <button onClick={() => {
+                navigator.share({
+                  title: todoState.title,
+                  text: "Check out this todo",
+                  url: `${location.origin}/todo/${tid}`
+                })
+              }}><FaShareAlt />&nbsp;Share</button>
+            </div> </> : ""
+          }
           <div className={style.authorArea}>
             <p>Created by: <Link href={`/profile/${author}`}>{todoState.authorName}</Link></p>
           </div>

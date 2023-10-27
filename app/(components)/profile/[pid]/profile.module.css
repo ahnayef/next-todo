@@ -1,0 +1,36 @@
+.profileMain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Itim', cursive;
+}
+
+.profileMain .profileBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+
+.profileMain .profilePic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 0.5em;
+}
+
+.profileMain .profilePic img {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+
+}
+
+.profileMain .todoBoxArea{
+    margin-top: 1em;
+}

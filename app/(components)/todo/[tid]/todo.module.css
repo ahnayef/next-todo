@@ -330,3 +330,11 @@
 .sTodoMain .authorArea p a{
     font-family: "Itim", cursive;
 }
+
+.sTodoMain .regularArea{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.5em;
+}

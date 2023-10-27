@@ -13,9 +13,10 @@ import { auth, db } from "@/app/firebase"
 import { useAuthState } from "react-firebase-hooks/auth";
 import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 
-const initialState: { name: string, email: string, password: string, confirmPassword: string, created:any} = {
+const initialState: { name: string, email: string,bio: string, password: string, confirmPassword: string, created:any} = {
   name: "",
   email: "",
+  bio:"",
   password: "",
   confirmPassword: "",
   created:""
@@ -69,6 +70,7 @@ export default function Signup() {
               name: name,
               email: myUser.user.email,
               id: myUser.user.uid,
+              bio: "Todogram user",
               created: serverTimestamp()
             }).then(() => {
               toast.success("Created account successfully!");
