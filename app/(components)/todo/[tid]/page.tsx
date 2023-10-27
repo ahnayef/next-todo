@@ -1,6 +1,6 @@
 "use client"
 
-import { auth } from "@/app/firebase";
+import { auth, db } from "@/app/firebase";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { BiSolidEdit } from "react-icons/bi";
@@ -10,12 +10,15 @@ import { ToastContainer, toast } from "react-toastify";
 import style from "./todo.module.css"
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
+import { doc, updateDoc } from "firebase/firestore";
+import Link from "next/link";
 
 
-const initialState: { tid: any, title: any, author: any, private: boolean, lists: Array<any> } = {
+const initialState: { tid: any, title: any, author: any,authorName:string, private: boolean, lists: Array<any> } = {
   tid: "",
   title: "",
   author: "",
+  authorName:"",
   private: false,
   lists: []
 }
@@ -23,10 +26,13 @@ const initialState: { tid: any, title: any, author: any, private: boolean, lists
 export default function Page({ params }: { params: { tid: string } }) {
 
   const { tid } = params;
+  const author = tid.split("!")[0];
+  const utid = tid.split("!")[1];
   const [todoState, setTodoState] = useState(initialState);
   const [todoProgress, setTodoProgress] = useState("0%");
-  const [owner, setOwner] = useState(false);
-
+  const [isOwner, setISOwner] = useState(false);
+  const [copyData,setCopyData]=useState("");
+  
   const [user, loading, error] = useAuthState(auth);
   useEffect(() => {
     if (loading) {
@@ -47,17 +53,18 @@ export default function Page({ params }: { params: { tid: string } }) {
 
   useEffect(() => {
 
-    const author = tid.split("!")[0];
-    const utid = tid.split("!")[1];
-
     if (user?.uid === author) {
-      setOwner(true);
+      setISOwner(true);
     }
 
     const getTodo = () => {
       axios.post("/api/getSingleTodo", { user: user?.uid, author: author, tid: utid }).then((res) => {
         const todo = res.data;
         setTodoState(todo);
+        console.log(todo);
+        let data = JSON.stringify(todo);
+        setCopyData(encodeURIComponent(data));
+
       }).catch(err => toast.error(err.response.data))
     }
 
@@ -186,13 +193,19 @@ export default function Page({ params }: { params: { tid: string } }) {
   const saveTodo = () => {
     if (todoState.title && todoState.lists.length > 0) {
       let todo = {
-        author: user?.uid,
         private: todoState.private,
         title: todoState.title,
         lists: todoState.lists,
       }
 
       // Update todo here
+      const todoRef = doc(db, "users", `${user?.uid}`, "todos", `${tid.split("!")[1]}`);
+
+      updateDoc(todoRef, todo).then(() => {
+        toast.success("Todo saved successfully");
+        location.reload();
+      }
+      ).catch(err => console.log(err));
 
 
     } else {
@@ -210,9 +223,9 @@ export default function Page({ params }: { params: { tid: string } }) {
         <h1>Todo</h1>
 
         <ul>
-          {todoState ? <h1 className={style.title}> <i><FaListUl /></i> <input onChange={handleTitle} value={todoState?.title} id='tTitle' placeholder='Todo Title' disabled={owner ? false : true} /></h1> : ""}
+          {todoState ? <h1 className={style.title}> <i><FaListUl /></i> <input onChange={handleTitle} value={todoState?.title} id='tTitle' placeholder='Todo Title' disabled={isOwner ? false : true} /></h1> : ""}
 
-          {owner ?
+          {isOwner ?
             <div className={style.actionArea}>
 
               <div className={style.inputArea}>
@@ -233,7 +246,7 @@ export default function Page({ params }: { params: { tid: string } }) {
                 <label htmlFor='tgBtn' className={`${style.tBtn} ${style.b2} ${style.buttonTog}`}>
                   <input type="checkbox" className={style.checkbox} id='tgBtn' onChange={() => {
                     setTodoState({ ...todoState, private: !todoState.private })
-                  }} hidden />
+                  }} checked={todoState.private} hidden />
                   <div className={style.knobs}>
                     <span></span>
                   </div>
@@ -248,7 +261,7 @@ export default function Page({ params }: { params: { tid: string } }) {
               <li key={item.id} className={item.done ? style.done : ""}>
 
                 <div className={style.index}>
-                  {owner ?
+                  {isOwner ?
                     <p title='Mark done' onClick={() => markDone(item.id)}>
                     </p>
                     : <p>{index + 1}</p>}
@@ -259,7 +272,7 @@ export default function Page({ params }: { params: { tid: string } }) {
                   {item.text}
                 </p>
 
-                {owner ?
+                {isOwner ?
                   <div className={style.tools}>
                     <i title='Delete' onClick={() => deleteTask(item.id)}><FiTrash /></i>
 
@@ -283,10 +296,13 @@ export default function Page({ params }: { params: { tid: string } }) {
             )
           })}
           {
-            todoState.lists.length > 0 ? <>{owner ? <button onClick={saveTodo}> <FaSave />&nbsp;Save</button> : null} <button> <FaCopy />&nbsp;Duplicate</button> </> : ""
+            todoState.lists.length > 0 ? <>{isOwner ? <button onClick={saveTodo}> <FaSave />&nbsp;Save</button> : null} <Link href={`/createTodo?datas=${copyData}`}><FaCopy />&nbsp;Duplicate</Link> </> : ""
           }
           <div className={style.progress}>
             <div className={style.bar} style={{ width: `${todoProgress}` }}></div>
+          </div>
+          <div className={style.authorArea}>
+            <p>Created by: <Link href={`/profile/${author}`}>{todoState.authorName}</Link></p>
           </div>
         </ul>
       </div>

@@ -10,23 +10,23 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '@/app/firebase';
-import { nanoid } from 'nanoid';
-import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 
 
 
-const initialState: { tid: any, title: any, author: any, private: boolean, lists: Array<any> } = {
+const initialState: { tid: any, title: any, author: any, authorName: string, private: boolean, lists: Array<any> } = {
     tid: "",
     title: "",
     author: "",
+    authorName: "",
     private: false,
     lists: []
 }
 
 
-export default function Page() {
+export default function Page({ params, searchParams, }: { params: { slug: string }; searchParams?: { [key: string]: string | string[] | undefined } }) {
 
-
+    const tdata = searchParams?.datas;
     const [user, loading, error] = useAuthState(auth);
 
     useEffect(() => {
@@ -46,6 +46,14 @@ export default function Page() {
     const [todoState, setTodoState] = useState(initialState);
     const [todoProgress, setTodoProgress] = useState("0%");
 
+    //Copy todo
+    useEffect(() => {
+        if (tdata) {
+            let copyData = JSON.parse(tdata as string);
+            setTodoState(copyData);
+        }
+
+    }, []);
 
     //Check progress
     useEffect(() => {
@@ -162,32 +170,45 @@ export default function Page() {
         }
     }
 
-    const saveTodo = () => {
+    const saveTodo = async () => {
         if (todoState.title && todoState.lists.length > 0) {
-            const uniqueId = nanoid();
-            let todo = {
-                author: user?.uid,
-                private: todoState.private,
-                title: todoState.title,
-                lists: todoState.lists,
-            }
-            addDoc(collection(db, "users", `${user?.uid}`, "todos"), todo).then((docRef) => {
-                updateDoc(doc(db, "users", `${user?.uid}`, "todos", docRef.id), {
-                    tid: docRef.id
-                }).then(() => {
-                    toast.success("Todo saved successfully!");
-                    setTodoState(initialState);
-                    location.href = '/todos';
-                }).catch((err) => {
-                    toast.error("Error adding tid!");
-                    console.log(err);
-                })
-            }
-            ).catch((error) => {
-                toast.error("Error saving todo!");
-                console.error("Error adding document: ", error);
-            });
 
+            //Get author name
+            const authorRef = doc(db, "users", `${user?.uid}`);
+            const authorSnap = await getDoc(authorRef);
+            const fetchData = [];
+
+            if (authorSnap.exists()) {
+
+                fetchData.push(authorSnap.data());
+                let todo = {
+                    authorName: fetchData[0]?.name,
+                    author: user?.uid,
+                    private: todoState.private,
+                    title: todoState.title,
+                    lists: todoState.lists,
+                }
+                addDoc(collection(db, "users", `${user?.uid}`, "todos"), todo).then((docRef) => {
+                    updateDoc(doc(db, "users", `${user?.uid}`, "todos", docRef.id), {
+                        tid: docRef.id
+                    }).then(() => {
+                        toast.success("Todo saved successfully!");
+                        setTodoState(initialState);
+                        location.href = '/todos';
+                    }).catch((err) => {
+                        toast.error("Error adding tid!");
+                        console.log(err);
+                    })
+                }
+                ).catch((error) => {
+                    toast.error("Error saving todo!");
+                    console.error("Error adding document: ", error);
+                });
+
+
+            } else {
+                toast.error("Couldn't find user name");
+            }
 
         } else {
             const target = document.querySelector("#tTitle") as HTMLInputElement;
@@ -230,7 +251,7 @@ export default function Page() {
                             <label htmlFor='tgBtn' className={`${style.tBtn} ${style.b2} ${style.buttonTog}`}>
                                 <input type="checkbox" className={style.checkbox} id='tgBtn' onChange={() => {
                                     setTodoState({ ...todoState, private: !todoState.private })
-                                }} hidden />
+                                }} checked={todoState.private} hidden />
                                 <div className={style.knobs}>
                                     <span></span>
                                 </div>
@@ -273,7 +294,7 @@ export default function Page() {
                         )
                     })}
                     {
-                        todoState.lists.length > 0 ? <><button onClick={saveTodo}> <FaSave />&nbsp;Save</button> <button> <FaCopy />&nbsp;Duplicate</button> </> : ""
+                        todoState.lists.length > 0 ? <button onClick={saveTodo}> <FaSave />&nbsp;Save</button> : ""
                     }
                     <div className={style.progress}>
                         <div className={style.bar} style={{ width: `${todoProgress}` }}></div>

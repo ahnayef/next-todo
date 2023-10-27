@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
         }
 
     } else {
-        return new NextResponse("No todo found", {
+        return new NextResponse("Todo not found", {
             status: 404,
         });
     }

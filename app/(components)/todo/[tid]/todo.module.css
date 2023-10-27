@@ -176,7 +176,7 @@
     transition: 0.5s;
 }
 
-.sTodoMain button {
+.sTodoMain button ,.sTodoMain a {
     position: relative;
     background-color: transparent;
     border: none;
@@ -204,7 +204,7 @@
     touch-action: manipulation;
 }
 
-.sTodoMain button:hover {
+.sTodoMain button:hover,.sTodoMain a:hover {
     background-color: var(--text);
     box-shadow: var(--background) 1px 1px 0 0;
     transform: translate(2px, 2px);
@@ -318,4 +318,15 @@
     border-radius: 0.3em;
     transition: 0.5s;
     
+}
+
+.sTodoMain .authorArea{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.5em;
+}
+.sTodoMain .authorArea p a{
+    font-family: "Itim", cursive;
 }
