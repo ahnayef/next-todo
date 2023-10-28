@@ -60,7 +60,7 @@ export default function Navbar() {
                 </div>
                 <div className={style.navProfile}>
                     <div className={style.navProfileMenu}>
-                        <Link href="/profile">Profile</Link>
+                        <Link href={`/profile/${user?.uid}`}>Profile</Link>
                         {
                             user ?
                                 <div className={`${style.btn} ${style.red}`} onClick={logOut}>Logout</div> : ""
