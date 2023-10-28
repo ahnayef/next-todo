@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         };
     }
 
-    const imgUrl = `https://images.placeholders.dev/?width=1280&height=640&text=${userData.name}&bgColor=%23F6E444&textColor=%23252A34`;
+    const imgUrl = `https://images.placeholders.dev/?width=1280&height=640&text=AHN&bgColor=%23F6E444&textColor=%23252A34`;
 
     return {
         title: 'Todogram | Profile',
