@@ -11,8 +11,9 @@ import { auth, db } from "@/app/firebase";
 import PtodoBox from "../PtodoBox";
 import { doc, getDoc } from "firebase/firestore";
 import Link from "next/link";
+import { getAnalytics, logEvent } from "firebase/analytics";
 
-const initialuserData:{name:string,bio:string,created:any} ={
+const initialuserData: { name: string, bio: string, created: any } = {
     name: "",
     bio: "",
     created: "",
@@ -28,6 +29,7 @@ export default function Profile({ params }: { params: { pid: string } }) {
     const [isOwner, setISOwner] = useState(false);
     const [user, loading, error] = useAuthState(auth);
     const [userData, setUserData] = useState(initialuserData);
+    const analytics = getAnalytics();
 
     useEffect(() => {
         if (loading) {
@@ -46,28 +48,39 @@ export default function Profile({ params }: { params: { pid: string } }) {
 
         if (user?.uid === pid) {
             setISOwner(true);
+            logEvent(analytics, 'view_own_profile', {
+                uid: pid,
+                email: user?.email
+            });
         }
 
 
-        const getUserData = async ()=>{
+        const getUserData = async () => {
             const docRef = doc(db, "users", pid);
             const docSnap = await getDoc(docRef);
-            const data=[];
+            const data = [];
             if (docSnap.exists()) {
 
                 data.push(docSnap.data());
-                  const date = new Date(
+                const date = new Date(
                     (data[0]?.created).seconds * 1000 + (data[0]?.created).nanoseconds / 1000000,
-                  ).toLocaleDateString('en-UK');
+                ).toLocaleDateString('en-UK');
 
-              setUserData({
-                    name:data[0]?.name,
-                    bio:data[0]?.bio,
-                    created:date
-              });
+                setUserData({
+                    name: data[0]?.name,
+                    bio: data[0]?.bio,
+                    created: date
+                });
+
+                logEvent(analytics, 'view_profile', {
+                    name: data[0]?.name,
+                    uid: pid,
+                    email: user?.email
+                });
+
 
             } else {
-              toast.error("Couldn't find user name");
+                toast.error("Couldn't find user name");
             }
         }
 
@@ -107,7 +120,7 @@ export default function Profile({ params }: { params: { pid: string } }) {
 
                     <div className={style.profilePicArea}>
                         <div className={style.profilePic}>
-                        <img src={`https://images.placeholders.dev/?width=150&height=150&text=${userData?.name}&bgColor=%23F6E444&textColor=%23252A34`} width="150px" height="150px" alt="" />
+                            <img src={`https://images.placeholders.dev/?width=150&height=150&text=${userData?.name}&bgColor=%23F6E444&textColor=%23252A34`} width="150px" height="150px" alt="" />
                         </div>
                     </div>
 
@@ -118,6 +131,10 @@ export default function Profile({ params }: { params: { pid: string } }) {
                     <Link href={`/editProfile`} className="btn">Edit profile</Link>
                     <button className="btn" onClick={() => {
                         navigator.clipboard.writeText(`${location.href}`);
+                        logEvent(analytics, 'copy_profile_link', {
+                            uid: pid,
+                            email: user?.email
+                        });
                         navigator.vibrate(200);
                         toast.success("Link copied to clipboard");
                     }}><FaLink /> Copy profile link</button>
@@ -128,7 +145,7 @@ export default function Profile({ params }: { params: { pid: string } }) {
                     <h1>Todos</h1>
                     <h2>Public:</h2>
                     <hr />
-                    {publicTodos.length === 0 ? <p style={{color:"var(--red)"}}>No public todos</p> : null}
+                    {publicTodos.length === 0 ? <p style={{ color: "var(--red)" }}>No public todos</p> : null}
                     <div className={style.tBoxHoler}>
                         {publicTodos.map((todo: any) => {
                             const progress = ((todo.lists.filter((list: any) => list.done).length / todo.lists.length) * 100).toString();
@@ -141,7 +158,7 @@ export default function Profile({ params }: { params: { pid: string } }) {
                         <>
                             <h2>Private:</h2>
                             <hr />
-                            {privateTodos.length === 0 ? <p style={{color:"var(--red)"}}>No public todos</p> : null}
+                            {privateTodos.length === 0 ? <p style={{ color: "var(--red)" }}>No public todos</p> : null}
                             <div className={style.tBoxHoler}>
                                 {privateTodos.map((todo: any) => {
                                     const progress = ((todo.lists.filter((list: any) => list.done).length / todo.lists.length) * 100).toString();

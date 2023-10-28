@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import { doc, updateDoc } from "firebase/firestore";
 import Link from "next/link";
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 
 const initialState: { tid: any, title: any, author: any, authorName: string, private: boolean, lists: Array<any> } = {
@@ -33,6 +34,8 @@ export default function Page({ params }: { params: { tid: string } }) {
   const [todoProgress, setTodoProgress] = useState("0%");
   const [isOwner, setISOwner] = useState(false);
   const [copyData, setCopyData] = useState("");
+
+  const analytics = getAnalytics();
 
   const [user, loading, error] = useAuthState(auth);
   useEffect(() => {
@@ -107,6 +110,8 @@ export default function Page({ params }: { params: { tid: string } }) {
       let newTask = { id: num, text: tempTask, done: false };
       setTodoState({ ...todoState, lists: [...todoState.lists, newTask] });
       setTempTask("");
+      logEvent(analytics, "Add a new task", { user: user?.uid,email:user?.email });
+
     } else {
       toast.error("Task can't be empty");
     }
@@ -115,7 +120,7 @@ export default function Page({ params }: { params: { tid: string } }) {
   const deleteTask = (id: any) => {
     let newTodo = todoState.lists.filter((item: any) => item.id !== id);
     setTodoState({ ...todoState, lists: newTodo });
-
+    logEvent(analytics, "Delete a task", { user: user?.uid,email:user?.email });
     if (toUpdate.id === id) {
       setToUpdate({
         id: "",
@@ -134,7 +139,7 @@ export default function Page({ params }: { params: { tid: string } }) {
       return item;
     });
     setTodoState({ ...todoState, lists: newTodo });
-
+    logEvent(analytics, "Mark a task done", { user: user?.uid,email:user?.email });
     setToUpdate({
       id: "",
       text: "",
@@ -148,6 +153,7 @@ export default function Page({ params }: { params: { tid: string } }) {
       text: "",
       done: false
     });
+    logEvent(analytics, "Cancel updating a task", { user: user?.uid,email:user?.email });
   }
 
   const changeTask = (e: any) => {
@@ -157,6 +163,7 @@ export default function Page({ params }: { params: { tid: string } }) {
       text: e.target.value
     }
     setToUpdate(tempTodo);
+    logEvent(analytics, "Change task", { user: user?.uid,email:user?.email });
   }
 
   const updateTask = () => {
@@ -169,6 +176,7 @@ export default function Page({ params }: { params: { tid: string } }) {
     });
 
     setTodoState({ ...todoState, lists: newTodo });
+    logEvent(analytics, "Update task", { user: user?.uid,email:user?.email });
 
     setToUpdate({
       id: "",
@@ -182,12 +190,14 @@ export default function Page({ params }: { params: { tid: string } }) {
   const handleAddEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       addTast();
+      logEvent(analytics, "Add task using Enter key", { user: user?.uid ,email:user?.email })
     }
   }
 
   const handleUpdateEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       updateTask();
+      logEvent(analytics, "Update a task using Enter key", { user: user?.uid,email:user?.email })
     }
   }
 
@@ -204,6 +214,7 @@ export default function Page({ params }: { params: { tid: string } }) {
 
       updateDoc(todoRef, todo).then(() => {
         toast.success("Todo saved successfully");
+        logEvent(analytics, "Save todo", { user: user?.uid,email:user?.email });
         location.reload();
       }
       ).catch(err => console.log(err));
@@ -306,13 +317,16 @@ export default function Page({ params }: { params: { tid: string } }) {
                 navigator.clipboard.writeText(`${location.origin}/todo/${tid}`);
                 navigator.vibrate(200);
                 toast.success("Link copied to clipboard");
+                logEvent(analytics, "Copy link", { user: user?.uid,email:user?.email });
               }}><FaLink />&nbsp;Copy Link</button>
               <button onClick={() => {
                 navigator.share({
                   title: todoState.title,
                   text: "Check out this todo",
                   url: `${location.origin}/todo/${tid}`
-                })
+                }).then(()=>{
+                  logEvent(analytics, "Share todo", { user: user?.uid,email:user?.email });
+                });
               }}><FaShareAlt />&nbsp;Share</button>
             </div> </> : ""
           }

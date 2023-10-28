@@ -11,14 +11,20 @@ import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { signOut } from 'firebase/auth';
+import { getAnalytics, logEvent } from 'firebase/analytics';
 
 export default function Home() {
 
   const [user] = useAuthState(auth);
   const [uname, setUname] = useState("");
   const [noTodo,setNoTodo] = useState(true);
+  const analytics = getAnalytics();
 
   const logOut = () => {
+    logEvent(analytics,"Logout from home page",{
+      email:user?.email,
+      uid:user?.uid
+    });
     signOut(auth).then(() => {
       toast.success("Logged out");
     }).catch((error) => {
@@ -27,13 +33,13 @@ export default function Home() {
     });
   }
 
-  useEffect(() => {
-    let width = screen.width;
-    if (width <= 425) {
-      alert("Please use tab or desktop for now. Mobile version will be available soon.");
-      location.assign("https://github.com/ahnayef");
-    }
-  }, [])
+  // useEffect(() => {
+  //   let width = screen.width;
+  //   if (width <= 425) {
+  //     alert("Please use tab or desktop for now. Mobile version will be available soon.");
+  //     location.assign("https://github.com/ahnayef");
+  //   }
+  // }, [])
 
 
   useEffect(() => {
@@ -60,8 +66,11 @@ export default function Home() {
       }
       loadData();
 
-
-
+      logEvent(analytics,"Brows main page as logged in",{
+        name:uname,
+        email:user.email,
+        uid:user.uid
+        })
     }
   }, [user]);
 

@@ -6,6 +6,7 @@ import { deleteDoc, doc } from 'firebase/firestore';
 import { auth, db } from '@/app/firebase';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
+import { getAnalytics } from 'firebase/analytics';
 
 export default function TodoBox(props: {
   tdTitle: string,
@@ -16,9 +17,11 @@ export default function TodoBox(props: {
 
   const { author, tdTitle, progress, tid } = props;
 
+  const analitics = getAnalytics();
 
   const delTodo = (tid: string) => {
     deleteDoc(doc(db, "users", `${auth.currentUser?.uid}`, "todos", `${tid}`)).then(() => {
+      (analitics as any).logEvent("Todo deleted", { Author: author });
       toast.success('Todo deleted successfully');
       setTimeout(() => location.reload(), 500);
     }).catch(() => toast.error("Something went wrong"));

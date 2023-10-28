@@ -8,6 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '@/app/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import Link from 'next/link';
+import { getAnalytics, logEvent } from 'firebase/analytics';
 
 
 
@@ -20,11 +21,21 @@ export default function Todos() {
   const [isEmpty, setIsEmpty] = useState(false);
 
   const [user, loading, error] = useAuthState(auth);
+
+  const analytics = getAnalytics();
+
   useEffect(() => {
     if (loading) {
       return;
     }
     else if (!user) {
+
+      (analytics as any).logEvent("Unauthorized access from todo page", {
+        name: "Unauthorized",
+        email: "Unauthorized",
+        uid: "Unauthorized"
+      })
+
       location.href = '/login';
     }
     else if (error) {
@@ -67,6 +78,13 @@ export default function Todos() {
       }
 
       getTodos();
+      logEvent(analytics,"Browse Todos", {
+        email: user.email,
+        uid: user.uid
+      })
+
+
+
     }
 
   }, [user]);
@@ -79,7 +97,7 @@ export default function Todos() {
         {isLoaded ?
           <>
             <h1>Your todos</h1>
-            <Link href="/createTodo" className='btn' style={{ fontSize: "1.01em" }}>Creare a new Todo</Link>
+            <Link href="/createTodo" onClick={()=>{ logEvent(analytics,"Create todo from todos",{uid:user?.uid,email:user?.email})}} className='btn' style={{ fontSize: "1.01em" }}>Creare a new Todo</Link>
           </> : null}
 
         {isLoaded ?
