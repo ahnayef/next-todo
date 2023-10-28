@@ -12,7 +12,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/app/firebase"
 import { useAuthState } from "react-firebase-hooks/auth";
 import { setDoc, doc, serverTimestamp } from "firebase/firestore";
-import { getAnalytics, logEvent } from "firebase/analytics";
+import { track } from "@vercel/analytics";
 
 const initialState: { name: string, email: string,bio: string, password: string, confirmPassword: string, created:any} = {
   name: "",
@@ -30,7 +30,6 @@ export default function Signup() {
 
   const [myUser, loading, error] = useAuthState(auth);
 
-  const analytics = getAnalytics();
 
   useEffect(() => {
     if (loading) {
@@ -66,9 +65,8 @@ export default function Signup() {
       if (password === confirmPassword) {
         // console.log(email + " " + password);
         createUserWithEmailAndPassword(auth, email, password).then(async (myUser) => {
-          logEvent(analytics, 'signup', {
-            uid: myUser.user?.uid,
-            email: myUser.user?.email
+          track('signup', {
+            email: `${email}`
           });
           console.log("Account created");
           try {

@@ -11,7 +11,7 @@ import { sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/aut
 import { auth } from '@/app/firebase';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { getAnalytics, logEvent } from 'firebase/analytics';
+import { track } from '@vercel/analytics';
 
 const initialState: { email: string, password: string } = {
     email: "",
@@ -23,8 +23,6 @@ export default function Login() {
 
     const [formState, setFormState] = useState(initialState);
     const [user, loading, error] = useAuthState(auth);
-    const analytics = getAnalytics();
-
     useEffect(() => {
         if (loading) {
             return;
@@ -54,9 +52,8 @@ export default function Login() {
         if (email && password) {
 
             signInWithEmailAndPassword(auth, email, password).then((user) => {
-                logEvent(analytics, 'login', {
-                    uid: user.user?.uid,
-                    email: user.user?.email
+                track('login', {
+                    email: `${email}`
                 });
                 toast.success("Login successsfully");
 
@@ -80,7 +77,7 @@ export default function Login() {
         console.log(email);
         if (email && /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/.test(email)) {
             sendPasswordResetEmail(auth, email).then(() => {
-                logEvent(analytics, 'password_reset', {
+                track('password_reset', {
                     email: email
                 });
                 toast.success("Email sent successfully");
