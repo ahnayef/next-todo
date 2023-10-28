@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import Navbar from './(components)/Navbar/Navbar'
+import { Analytics } from '@vercel/analytics/react'
 
 
 export const metadata: Metadata = {
@@ -70,6 +71,7 @@ export default function RootLayout({
       <body>
         <Navbar />
         {children}
+        <Analytics/>
       </body>
     </html>
 

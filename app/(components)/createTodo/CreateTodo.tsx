@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '@/app/firebase';
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
-import { getAnalytics, logEvent } from 'firebase/analytics';
+import { track } from '@vercel/analytics';
 
 
 
@@ -30,14 +30,13 @@ export default function CreateTodo({  searchParams, }: { searchParams?: { [key: 
     const tdata = searchParams?.datas;
 
     const [user, loading, error] = useAuthState(auth);
-    const analytics = getAnalytics();
 
     useEffect(() => {
         if (loading) {
             return;
         }
         else if (!user) {
-            logEvent(analytics, "Unauthorized access attempt to profile");
+            track("Unauthorized access attempt to profile");
             location.href = '/login';
         }
         else if (error) {
@@ -90,7 +89,7 @@ export default function CreateTodo({  searchParams, }: { searchParams?: { [key: 
             let newTask = { id: num, text: tempTask, done: false };
             setTodoState({ ...todoState, lists: [...todoState.lists, newTask] });
             setTempTask("");
-            logEvent(analytics, "Add a new task", { user: user?.uid,email:user?.email });
+            track("Add a new task", { user: `${user?.uid}`,email:`${user?.email}` });
         } else {
             toast.error("Task can't be empty");
         }
@@ -107,7 +106,7 @@ export default function CreateTodo({  searchParams, }: { searchParams?: { [key: 
                 done: false
             });
         }
-        logEvent(analytics, "Delete a task", { user: user?.uid,email:user?.email });
+        track("Delete a task", { user:`${ user?.uid}`,email:`${user?.email}` });
     }
 
     const markDone = (id: any) => {
@@ -124,7 +123,7 @@ export default function CreateTodo({  searchParams, }: { searchParams?: { [key: 
             text: "",
             done: false
         });
-        logEvent(analytics, "Mark a task done", { user: user?.uid,email:user?.email });
+        track("Mark a task done", { user: `${user?.uid}`,email:`${user?.email}` });
     }
 
     const cancelUpdate = () => {
@@ -133,7 +132,7 @@ export default function CreateTodo({  searchParams, }: { searchParams?: { [key: 
             text: "",
             done: false
         });
-        logEvent(analytics, "Cancel updatting a task", { user: user?.uid,email:user?.email });
+        track("Cancel updatting a task", { user: `${user?.uid}`,email:`${user?.email}` });
     }
 
     const changeTask = (e: any) => {
@@ -144,7 +143,7 @@ export default function CreateTodo({  searchParams, }: { searchParams?: { [key: 
         }
         setToUpdate(tempTodo);
 
-        logEvent(analytics, "Change task", { user: user?.uid,email:user?.email });
+        track("Change task", { user: `${user?.uid}`,email:`${user?.email}` });
     }
 
     const updateTask = () => {
@@ -164,7 +163,7 @@ export default function CreateTodo({  searchParams, }: { searchParams?: { [key: 
             done: false
         });
 
-        logEvent(analytics, "Update task", { user: user?.uid,email:user?.email });
+        track("Update task", { user: `${user?.uid}`,email:`${user?.email}` });
     }
 
 
@@ -172,14 +171,14 @@ export default function CreateTodo({  searchParams, }: { searchParams?: { [key: 
         if (e.key === 'Enter') {
             addTast();
 
-            logEvent(analytics, "Add task using Enter key", { user: user?.uid ,email:user?.email })
+            track("Add task using Enter key", { user: `${user?.uid}` ,email:`${user?.email}` })
         }
     }
 
     const handleUpdateEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             updateTask();
-            logEvent(analytics, "Update a task using Enter key", { user: user?.uid,email:user?.email })
+            track("Update a task using Enter key", { user:`${user?.uid}`,email:`${user?.email}` })
         }
     }
 
@@ -206,7 +205,7 @@ export default function CreateTodo({  searchParams, }: { searchParams?: { [key: 
                         tid: docRef.id
                     }).then(() => {
                         toast.success("Todo saved successfully!");
-                        logEvent(analytics, "Save todo", { user: todo.authorName,email:user?.email });
+                        track("Save todo", { user: todo.authorName,email:`${user?.email}` });
                         setTodoState(initialState);
                         location.href = '/todos';
                     }).catch((err) => {
@@ -228,7 +227,7 @@ export default function CreateTodo({  searchParams, }: { searchParams?: { [key: 
             const target = document.querySelector("#tTitle") as HTMLInputElement;
             target?.focus();
             toast.error("Title can't be empty");
-            logEvent(analytics, "Try to save todo without Title", { user: user?.uid,email:user?.email });
+            track("Try to save todo without Title", { user: `${user?.uid}`,email:`${user?.email}` });
         }
     }
 

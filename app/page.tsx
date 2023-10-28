@@ -11,19 +11,18 @@ import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { signOut } from 'firebase/auth';
-import { getAnalytics, logEvent } from 'firebase/analytics';
+import { track } from '@vercel/analytics';
 
 export default function Home() {
 
   const [user] = useAuthState(auth);
   const [uname, setUname] = useState("");
   const [noTodo,setNoTodo] = useState(true);
-  const analytics = getAnalytics();
 
   const logOut = () => {
-    logEvent(analytics,"Logout from home page",{
-      email:user?.email,
-      uid:user?.uid
+    track("Logout from home page",{
+      email:`${user?.email}`,
+      uid:`${user?.uid}`
     });
     signOut(auth).then(() => {
       toast.success("Logged out");
@@ -66,7 +65,7 @@ export default function Home() {
       }
       loadData();
 
-      logEvent(analytics,"Brows main page as logged in",{
+      track("Brows main page as logged in",{
         name:uname,
         email:user.email,
         uid:user.uid

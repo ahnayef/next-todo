@@ -27,4 +27,4 @@ const auth = getAuth(app);
 const analytics =
   app.name && typeof window !== 'undefined' ? getAnalytics(app) : null;
 
-export { auth, db, storage,analytics }
+export { auth, db, storage }

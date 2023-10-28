@@ -12,6 +12,7 @@ import PtodoBox from "../PtodoBox";
 import { doc, getDoc } from "firebase/firestore";
 import Link from "next/link";
 import { getAnalytics, logEvent } from "firebase/analytics";
+import { track } from "@vercel/analytics";
 
 const initialuserData: { name: string, bio: string, created: any } = {
     name: "",
@@ -29,7 +30,6 @@ export default function Profile({ params }: { params: { pid: string } }) {
     const [isOwner, setISOwner] = useState(false);
     const [user, loading, error] = useAuthState(auth);
     const [userData, setUserData] = useState(initialuserData);
-    const analytics = getAnalytics();
 
     useEffect(() => {
         if (loading) {
@@ -48,9 +48,9 @@ export default function Profile({ params }: { params: { pid: string } }) {
 
         if (user?.uid === pid) {
             setISOwner(true);
-            logEvent(analytics, 'view_own_profile', {
+            track('view_own_profile', {
                 uid: pid,
-                email: user?.email
+                email: `${user?.email}`
             });
         }
 
@@ -72,10 +72,10 @@ export default function Profile({ params }: { params: { pid: string } }) {
                     created: date
                 });
 
-                logEvent(analytics, 'view_profile', {
+                track('view_profile', {
                     name: data[0]?.name,
                     uid: pid,
-                    email: user?.email
+                    email: `${user?.email}`
                 });
 
 
@@ -131,9 +131,9 @@ export default function Profile({ params }: { params: { pid: string } }) {
                     <Link href={`/editProfile`} className="btn">Edit profile</Link>
                     <button className="btn" onClick={() => {
                         navigator.clipboard.writeText(`${location.href}`);
-                        logEvent(analytics, 'copy_profile_link', {
+                        track('copy_profile_link', {
                             uid: pid,
-                            email: user?.email
+                            email: `${user?.email}`
                         });
                         navigator.vibrate(200);
                         toast.success("Link copied to clipboard");

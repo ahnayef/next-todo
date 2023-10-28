@@ -1,20 +1,10 @@
 "use client"
 
-import { useEffect, useState } from "react";
 import style from "./about.module.css";
-import { getAnalytics, logEvent } from "firebase/analytics";
+import { track } from "@vercel/analytics";
 
 export default function About() {
 
-
-
-  const [analytics, setAnalytics] = useState<any>(null);
-
-  useEffect(() => {
-    const analytics = getAnalytics();
-    setAnalytics(analytics);
-    logEvent(analytics, "About page visited");
-  }, []);
 
   return (
 
@@ -34,7 +24,7 @@ export default function About() {
           <br />
           <p> But, here&apos;s the thing—it was my personal study plan, not to be copied. That&apos;s why I made a simple personalized todo app. Now, everyone can make private and public todos listed on their profile. Anyone can copy and use them. No more trouble sharing my work; it&apos;s open for everyone. Welcome to an app where sharing is easy, and planning is the key to success.</p>
           <br />
-          <a href="https://github.com/ahnayef" onClick={() => { logEvent(analytics, "Browse github profile from about") }} target="_" className={style.by}>@AHNayef</a>
+          <a href="https://github.com/ahnayef" onClick={()=>{ track("Browse github profile from about") }} target="_" className={style.by}>@AHNayef</a>
         </div>
       </div>
     </div>

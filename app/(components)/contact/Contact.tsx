@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import axios from "axios";
-import { getAnalytics, logEvent } from "firebase/analytics";
+import { track } from "@vercel/analytics";
 
 const initialState: { name: string, email: string, message: string } = {
     name: "",
@@ -20,15 +20,8 @@ export default function Contact() {
     const [formState, setFormState] = useState(initialState);
     const [loading, setLoading] = useState(false);
 
-    const [analytics, setAnalytics] = useState<any>(null);
-
     useEffect(() => {
-        const analytics = getAnalytics();
-        setAnalytics(analytics);
-    }, []);
-
-    useEffect(() => {
-        logEvent(analytics, "Contact page visited");
+        track("Contact page visited");
     }, []);
 
 
@@ -48,7 +41,7 @@ export default function Contact() {
             setFormState(initialState);
             e.target.reset();
             toast.success("Form submitted successfully!");
-            logEvent(analytics, "Contact form submitted", { name: formState.name, email: formState.email });
+            track("Contact form submitted", { name: formState.name, email: formState.email });
             toast.warning("Page will reload in 2 seconds");
             setTimeout(() => {
                 location.reload();
@@ -58,7 +51,7 @@ export default function Contact() {
         ).catch(err => {
             if (err.response.data.message) {
                 toast.error(err.response.data.message);
-                logEvent(analytics, "Contact form submission failed", { name: formState.name, email: formState.email });
+                track("Contact form submission failed", { name: formState.name, email: formState.email });
                 toast.warning("Page will reload in 2 seconds");
             } else {
                 toast.error("Something went wrong");
