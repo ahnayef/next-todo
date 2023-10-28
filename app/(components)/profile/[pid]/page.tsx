@@ -1,158 +1,88 @@
-"use client"
+import React from 'react'
+import Profile from './Profile'
+import { Metadata } from 'next';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/app/firebase';
 
-import { FaLink } from "react-icons/fa"
-import style from "./profile.module.css"
-import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "@/app/firebase";
-import PtodoBox from "../PtodoBox";
-import { doc, getDoc } from "firebase/firestore";
 
-const initialuserData:{name:string,bio:string,created:any} ={
+type Props = {
+  params: { pid: string };
+};
+
+// set dynamic metadata
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  // read route params
+  const pid = params.pid;
+  let userData:{name:string} ={
     name: "",
-    bio: "",
-    created: "",
+  };
+  
+    // fetch data from API
+    const getUserData = async ()=>{
+        const docRef = doc(db, "users", pid);
+        const docSnap = await getDoc(docRef);
+        const data=[];
+        if (docSnap.exists()) {
+            data.push(docSnap.data());
+          userData ={
+                name:data[0]?.name
+          };
+
+        } 
+    }
+
+    getUserData();
+
+  console.log();
+
+  return {
+   title: 'Todogram | Profile',
+  description: `${userData.name}'s Todogram profile`,
+  authors: [{ name: "AHNayef", url: "https://ahnayef.t.me" }],
+  keywords: ["todo", "workflow", "management", "routine", "progress"],
+  metadataBase: new URL('https://todogram.vercel.app'),
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    userScalable: true
+  },
+
+  openGraph: {
+    url: 'https://www.todogram.vercel.app',
+    siteName: 'Todogram',
+    images: [
+      {
+        url: `https://images.placeholders.dev/?width=1280&height=640&text=${userData?.name}&bgColor=%23F6E444&textColor=%23252A34`,
+        width: 1280,
+        height: 640,
+        alt: 'Meta Image',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    creator: "_AHNayef_",
+    images: [
+      {
+        url: `https://images.placeholders.dev/?width=1280&height=640&text=${userData?.name}&bgColor=%23F6E444&textColor=%23252A34`,
+        width: 1280,
+        height: 640,
+        alt: 'Meta Image',
+      },
+    ],
+  }
+  };
 }
 
 
-export default function Page({ params }: { params: { pid: string } }) {
 
-    const { pid } = params;
+export default function Page({ params }: { params: { pid: string }; }) {
 
-    const [publicTodos, setPublicTodos] = useState([]);
-    const [privateTodos, setPrivateTodos] = useState([]);
-    const [isOwner, setISOwner] = useState(false);
-    const [user, loading, error] = useAuthState(auth);
-    const [userData, setUserData] = useState(initialuserData);
-
-    useEffect(() => {
-        if (loading) {
-            return;
-        }
-        else if (!user) {
-            location.href = '/login';
-        }
-        else if (error) {
-            console.log(error)
-        }
-    }, [user, loading, error]);
-
-
-    useEffect(() => {
-
-        if (user?.uid === pid) {
-            setISOwner(true);
-        }
-
-
-        const getUserData = async ()=>{
-            const docRef = doc(db, "users", pid);
-            const docSnap = await getDoc(docRef);
-            const data=[];
-            if (docSnap.exists()) {
-
-                data.push(docSnap.data());
-                  const date = new Date(
-                    (data[0]?.created).seconds * 1000 + (data[0]?.created).nanoseconds / 1000000,
-                  ).toLocaleDateString('en-UK');
-
-              setUserData({
-                    name:data[0]?.name,
-                    bio:data[0]?.bio,
-                    created:date
-              });
-
-            } else {
-              toast.error("Couldn't find user name");
-            }
-        }
-
-        const getTodos = () => {
-
-            axios.post("/api/getMultipleTodos", {
-                aplicant: user?.uid,
-                author: pid
-            }).then((res) => {
-
-                const todos = res.data;
-
-                if (user?.uid === pid) {
-
-                    setPublicTodos(todos.publicTodos);
-                    setPrivateTodos(todos.privateTodos);
-
-                } else {
-
-                    setPublicTodos(todos.publicTodos);
-                }
-
-
-            }).catch(err => console.error(err.response));
-        }
-
-        getTodos();
-        getUserData();
-    }, [pid, user]);
-
-    return (
-        <>
-            <ToastContainer theme="dark" />
-            <div className={style.profileMain}>
-
-                <div className={style.profileBox}>
-
-                    <div className={style.profilePicArea}>
-                        <div className={style.profilePic}>
-                        <img src={`https://images.placeholders.dev/?width=150&height=150&text=${userData?.name}&bgColor=%23F6E444&textColor=%23252A34`} width="150px" height="150px" alt="" />
-                        </div>
-                    </div>
-
-
-                    <h2>{userData?.name}</h2>
-                    <p>{userData?.bio}</p>
-                    <p>Member since: {userData?.created}</p>
-                    <button className="btn" onClick={() => {
-                        navigator.clipboard.writeText(`${location.href}`);
-                        navigator.vibrate(200);
-                        toast.success("Link copied to clipboard");
-                    }}><FaLink /> Copy profile link</button>
-                </div>
-
-
-                <div className={style.todoBoxArea}>
-                    <h1>Todos</h1>
-                    <h2>Public:</h2>
-                    <hr />
-                    {publicTodos.length === 0 ? <p style={{color:"var(--red)"}}>No public todos</p> : null}
-                    <div className={style.tBoxHoler}>
-                        {publicTodos.map((todo: any) => {
-                            const progress = ((todo.lists.filter((list: any) => list.done).length / todo.lists.length) * 100).toString();
-                            return (
-                                <PtodoBox tdTitle={todo.title} progress={progress} tid={todo.tid} author={todo.author} key={todo.tid} isOwner={isOwner} />
-                            )
-                        })}
-                    </div>
-                    {isOwner ?
-                        <>
-                            <h2>Private:</h2>
-                            <hr />
-                            {privateTodos.length === 0 ? <p style={{color:"var(--red)"}}>No public todos</p> : null}
-                            <div className={style.tBoxHoler}>
-                                {privateTodos.map((todo: any) => {
-                                    const progress = ((todo.lists.filter((list: any) => list.done).length / todo.lists.length) * 100).toString();
-                                    return (
-                                        <PtodoBox tdTitle={todo.title} progress={progress} tid={todo.tid} author={todo.author} key={todo.tid} isOwner={isOwner} />
-                                    )
-                                })}
-                            </div>
-                        </> : null}
-
-
-                </div>
-            </div>
-        </>
-    )
+    
+  return (
+    <>
+    <Profile params={params}/>
+    </>
+  )
 }
