@@ -28,7 +28,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         };
     }
 
-    const imgUrl = `https://images.placeholders.dev/?width=1280&height=640&text=AHN&bgColor=%23F6E444&textColor=%23252A34`;
+    // const imgUrl = `https://images.placeholders.dev/?width=200&height=200&text=${userData.name}&bgColor=%23F6E444&textColor=%23252A34`;
+    // const imgUrl = `https://raw.githubusercontent.com/ahnayef/next-todo/main/app/assets/img/meta/profile.png`;
 
     return {
         title: 'Todogram | Profile',
@@ -47,9 +48,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             siteName: 'Todogram',
             images: [
                 {
-                    url: imgUrl,
-                    width: 1280,
-                    height: 640,
+                    url: "https://raw.githubusercontent.com/ahnayef/next-todo/main/app/assets/img/meta/profile.png",
+                    width: 200,
+                    height: 200,
                     alt: 'Meta Image',
                 },
             ],
@@ -60,9 +61,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             creator: "_AHNayef_",
             images: [
                 {
-                    url: imgUrl,
-                    width: 1280,
-                    height: 640,
+                    url: "https://raw.githubusercontent.com/ahnayef/next-todo/main/app/assets/img/meta/profile.png",
+                    width: 200,
+                    height: 200,
                     alt: 'Meta Image',
                 },
             ],
