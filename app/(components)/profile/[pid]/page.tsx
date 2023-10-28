@@ -26,8 +26,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         userData = {
             name: data[0].name
         };
-
     }
+
+    const imgUrl = `https://images.placeholders.dev/?width=1280&height=640&text=${userData?.name}&bgColor=%23F6E444&textColor=%23252A34`;
 
     return {
         title: 'Todogram | Profile',
@@ -46,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             siteName: 'Todogram',
             images: [
                 {
-                    url: `https://images.placeholders.dev/?width=1280&height=640&text=${userData?.name}&bgColor=%23F6E444&textColor=%23252A34`,
+                    url: imgUrl,
                     width: 1280,
                     height: 640,
                     alt: 'Meta Image',
@@ -59,7 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             creator: "_AHNayef_",
             images: [
                 {
-                    url: `https://images.placeholders.dev/?width=1280&height=640&text=${userData?.name}&bgColor=%23F6E444&textColor=%23252A34`,
+                    url: imgUrl,
                     width: 1280,
                     height: 640,
                     alt: 'Meta Image',
