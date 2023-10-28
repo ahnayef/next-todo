@@ -13,7 +13,7 @@ import { signOut } from "firebase/auth"
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css';
 import { useEffect, useRef, useState } from "react"
-import { getAnalytics, logEvent } from "firebase/analytics"
+import { track } from "@vercel/analytics"
 
 export default function Navbar() {
 
@@ -21,7 +21,6 @@ export default function Navbar() {
 
     const [user] = useAuthState(auth);
 
-    const analytics = getAnalytics();
 
     const [navheight, setNavHeight] = useState(0);
     const getHeight = useRef(null);
@@ -33,9 +32,9 @@ export default function Navbar() {
     }, []);
 
     const logOut = () => {
-        logEvent(analytics, 'logout from nav', {
-            email: user?.email,
-            uid: user?.uid
+        track('logout from nav', {
+            email: `${user?.email}`,
+            uid: `${user?.uid}`
         });
         signOut(auth)
             .then(() => {
