@@ -10,6 +10,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "@/app/firebase";
 import PtodoBox from "../PtodoBox";
 import { doc, getDoc } from "firebase/firestore";
+import Link from "next/link";
 
 const initialuserData:{name:string,bio:string,created:any} ={
     name: "",
@@ -112,8 +113,9 @@ export default function Profile({ params }: { params: { pid: string } }) {
 
 
                     <h2>{userData?.name}</h2>
-                    <p>{userData?.bio}</p>
-                    <p>Member since: {userData?.created}</p>
+                    <p className={style.bio}>{userData?.bio}</p>
+                    <p>Member since: <i>{userData?.created}</i></p>
+                    <Link href={`/editProfile`} className="btn">Edit profile</Link>
                     <button className="btn" onClick={() => {
                         navigator.clipboard.writeText(`${location.href}`);
                         navigator.vibrate(200);
