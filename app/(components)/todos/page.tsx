@@ -4,7 +4,7 @@ import { Metadata } from 'next'
 
 
 export const metadata: Metadata = {
-  title: 'Todogram',
+  title: 'Todogram | Todos',
   description: 'Small setps, big impact.',
   authors: [{ name: "AHNayef", url: "https://ahnayef.t.me" }],
   keywords: ["todo", "workflow", "management", "routine", "progress"],
