@@ -114,3 +114,44 @@
         transform: rotate3d(0, 0, 1, 0deg);
     }
 }
+
+
+@media only screen and (max-width: 880px) {
+
+    .navIcons{
+        position: fixed;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: fit-content;
+        height: fit-content;
+        background-color: rgba(0, 0, 0, 0.85);
+        box-shadow: 0 0 0.7em var(--background-light);
+        border: 1px solid var(--primary);
+        border-radius: 0.3em;
+        padding: 1em;
+        z-index: 2;
+        animation: zoomOut   0.5s;
+        animation-fill-mode: forwards;
+        /* display: none; */
+    }
+    .navIcons .navProfile2 .navProfileMenu2{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        position: relative;
+        padding: 1em;
+    }
+
+   .navMain .navProfile{
+    display: none;
+   }
+
+}

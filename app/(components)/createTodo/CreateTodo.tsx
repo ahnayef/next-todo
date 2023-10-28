@@ -250,10 +250,10 @@ export default function CreateTodo({  searchParams, }: { searchParams?: { [key: 
 
                         <div className={style.inputArea}>
                             <input id="updateT" type="text" placeholder="Update Task" value={toUpdate && toUpdate.text} onChange={(e) => changeTask(e)} onKeyDown={handleUpdateEnter} disabled={toUpdate.id ? false : true} />
-
+                            <div className={style.updateBtns}>
                             <button onClick={updateTask} disabled={toUpdate.id ? false : true} ><i><FaCheck /></i></button>
-
                             <button onClick={cancelUpdate} disabled={toUpdate.id ? false : true} ><FaTimes /></button>
+                            </div>
                         </div>
 
                         <div className={style.privacyArea}>

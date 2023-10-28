@@ -53,4 +53,22 @@
 
 .profileMain .todoBoxArea{
     margin-top: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.todoBoxArea h1{
+    margin-bottom: 0.5em;
+}
+.todoBoxArea hr{
+    width: 80%;
+}
+
+.todoBoxArea .tBoxHoler{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
 }

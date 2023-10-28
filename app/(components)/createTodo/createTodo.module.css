@@ -152,8 +152,17 @@
 }
 
 .crTodoMain .actionArea .inputArea {
-    margin: 0.5em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     width: 100%;
+    margin: 0.5em;
+}
+
+.inputArea .updateBtns{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .crTodoMain .actionArea input {

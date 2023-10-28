@@ -3,7 +3,7 @@
 import style from "./navbar.module.css"
 import "@/app/assets/icon/style.css"
 import Link from "next/link"
-import { FaEnvelope, FaInfoCircle } from "react-icons/fa"
+import { FaEnvelope, FaInfoCircle, FaTimes } from "react-icons/fa"
 import { AiFillHome } from "react-icons/ai"
 import { IoIosCheckbox } from "react-icons/io"
 import { usePathname } from "next/navigation"
@@ -20,7 +20,7 @@ export default function Navbar() {
     const path = usePathname();
 
     const [user] = useAuthState(auth);
-
+    const [check, setCheke] = useState(false);
 
     const [navheight, setNavHeight] = useState(0);
     const getHeight = useRef(null);
@@ -62,7 +62,20 @@ export default function Navbar() {
                         <li><Link href="/about" className={path === "/about" ? "active" : ""}> <i><FaInfoCircle /></i> About </Link></li>
                         <li><Link href="/contact" className={path === "/contact" ? "active" : ""}> <i><FaEnvelope /></i> Contact</Link></li>
                     </ul>
+
+                    <div className={style.navProfile2}>
+                    <div className={style.navProfileMenu2}>
+                        <Link href={`/profile/${user?.uid}`} className="btn">Profile</Link>
+                        {
+                            user ?
+                                <div className="btn del" onClick={logOut}>Logout</div> : ""
+                        }
+                    </div>
+                    <button className="btn  del"><FaTimes/></button>
                 </div>
+
+                </div>
+
                 <div className={style.navProfile}>
                     <div className={style.navProfileMenu}>
                         <Link href={`/profile/${user?.uid}`}>Profile</Link>
@@ -72,6 +85,7 @@ export default function Navbar() {
                         }
                     </div>
                 </div>
+
             </nav>
             <div style={{height:navheight+20}} ></div>
         </>

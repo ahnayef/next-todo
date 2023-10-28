@@ -5,7 +5,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
+  /* flex-direction: row; */
+  flex-wrap: wrap;
 
   /* Pattern */
 
@@ -18,12 +19,12 @@
 }
 
 .right {
-  flex: 1;
   /* border: 1px solid red; */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 1.5em;
 }
 
 .todoBox {
@@ -176,12 +177,12 @@
 }
 
 .left {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   font-family: 'Itim', cursive;
+  padding: 1.5em;
 }
 
 .left .welcome{
