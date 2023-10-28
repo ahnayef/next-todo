@@ -29,11 +29,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     }
 
-
-
-
-    console.log();
-
     return {
         title: 'Todogram | Profile',
         description: `${userData.name}'s Todogram profile`,
