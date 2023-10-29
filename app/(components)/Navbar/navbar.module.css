@@ -48,7 +48,7 @@
     /* animation-timing-function: cubic-bezier(0.375, 0.885, 0.32, 1.275); */
 }
 
-.navProfile{
+.navProfile {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,7 +56,11 @@
     position: relative;
 }
 
-.navProfileMenu{
+.navProfile2 {
+    display: none;
+}
+
+.navProfileMenu {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -66,7 +70,9 @@
     /* margin-top: 8em; */
     /* margin-top: 1em; */
 }
-.navProfileMenu a, .btn{
+
+.navProfileMenu a,
+.btn {
     border: 1px solid var(--primary);
     padding: 0.5em;
     background-color: var(--background);
@@ -76,22 +82,26 @@
     font-weight: 500;
 }
 
-.navProfileMenu .red{
+.navProfileMenu .red {
     color: var(--red);
     border-color: var(--red);
 }
-.navProfileMenu .red:hover{
-   background-color: var(--red);
+
+.navProfileMenu .red:hover {
+    background-color: var(--red);
 }
 
-.navProfileMenu a:hover,.btn:hover{
+.navProfileMenu a:hover,
+.btn:hover {
     cursor: pointer;
     color: var(--background);
     background-color: var(--primary);
     transition: 0.5s;
 }
 
-
+.navMain .navTg {
+    display: none;
+}
 
 @keyframes swing {
     20% {
@@ -118,7 +128,7 @@
 
 @media only screen and (max-width: 880px) {
 
-    .navIcons{
+    .navIcons {
         position: fixed;
         justify-content: center;
         align-items: center;
@@ -137,11 +147,67 @@
         border-radius: 0.3em;
         padding: 1em;
         z-index: 2;
-        animation: zoomOut   0.5s;
+        /* animation: zoomOut 0.5s;
+        animation-fill-mode: forwards; */
+        opacity: 0;
+        visibility: hidden;
+        transition: visibility 0.5s, opacity 0.1s;
+        animation: zoomOut 0.5s linear ease-out;
         animation-fill-mode: forwards;
-        /* display: none; */
+        /* animation-timing-function: cubic-bezier(.175, 0.885, 0.32, 1.275);
+        -o-animation-timing-function: cubic-bezier(cubic-bezier(0.175, 0.885, 0.32, 1.275)); */
     }
-    .navIcons .navProfile2 .navProfileMenu2{
+
+
+
+    #navTg:checked~.navIcons {
+        opacity: 1;
+        visibility: visible; /* Show the element when the checkbox is checked */
+        display: flex;
+        animation: zoomIn 0.5s linear;
+        /* animation-duration: 0.4s; */
+        animation-timing-function: cubic-bezier(.175, 0.885, 0.32, 1.275);
+        -o-animation-timing-function: cubic-bezier(cubic-bezier(0.175, 0.885, 0.32, 1.275));
+    }
+
+    @keyframes zoomIn {
+        from {
+            opacity: 0;
+            transform: scale3d(0.3, 0.3, 0.3);
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+    @keyframes zoomOut {
+        from {
+          opacity: 1;
+        }
+      
+        50% {
+          opacity: 0;
+          transform: scale3d(0.3, 0.3, 0.3);
+        }
+      
+        to {
+          opacity: 0;
+        }
+      }
+    .navMain .navTg {
+        display: flex;
+    }
+
+    .navProfile2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+
+    }
+
+    .navIcons .navProfile2 .navProfileMenu2 {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -150,8 +216,10 @@
         padding: 1em;
     }
 
-   .navMain .navProfile{
-    display: none;
-   }
+
+
+    .navMain .navProfile {
+        display: none;
+    }
 
 }
