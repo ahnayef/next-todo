@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const utid = tid.split("!")[1];
 
   let todoInfo: { title: string, authorName: string } = {
-    title: "",
-    authorName: "",
+    title: "Private Todo",
+    authorName: "None",
   };
 
   // fetch data from API
@@ -27,11 +27,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const todoSnap = await getDoc(todoRef);
 
   if ((todoSnap.exists())) {
-    todoInfo = {
-      title: todoSnap.data().title,
-      authorName: todoSnap.data().authorName,
-    };
-
+    if(todoSnap.data().public){
+      todoInfo = {
+        title: todoSnap.data().title,
+        authorName: todoSnap.data().authorName,
+      };
+    }else{
+      todoInfo = {
+        title: "Private Todo",
+        authorName: "None",
+      };
+    }
   }
 
   return {
