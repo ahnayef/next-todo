@@ -16,9 +16,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const author = tid.split("!")[0];
   const utid = tid.split("!")[1];
 
-  let todoInfo: { title: string, authorName: string } = {
+  let todoInfo: { title: string, description: string } = {
     title: "Private Todo",
-    authorName: "None",
+    description: "None",
   };
 
   // fetch data from API
@@ -30,19 +30,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if(!(todoSnap.data().private)){
       todoInfo = {
         title: todoSnap.data().title,
-        authorName: todoSnap.data().authorName,
+        description: `A todo by ${todoSnap.data().authorName}`,
       };
     }else{
       todoInfo = {
         title: "Private Todo",
-        authorName: "None",
+        description: "---",
       };
     }
   }
 
   return {
     title: todoInfo.title,
-    description: `A todo by ${todoInfo.authorName}`,
+    description: todoInfo.description,
     authors: [{ name: "AHNayef", url: "https://ahnayef.t.me" }],
     keywords: ["todo", "workflow", "management", "routine", "progress"],
     metadataBase: new URL('https://todogram.vercel.app'),
