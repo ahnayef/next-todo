@@ -67,7 +67,10 @@ export default function Todo({ params }: { params: { tid: string } }) {
         let data = JSON.stringify(todo);
         setCopyData(encodeURIComponent(data));
 
-      }).catch(err => toast.error(err.response.data))
+      }).catch((err) =>{toast.error(err.response.data);
+        toast.info("Redirecting to author's profile");
+        location.href = `/profile/${author}`;
+      })
     }
 
     user && getTodo();
