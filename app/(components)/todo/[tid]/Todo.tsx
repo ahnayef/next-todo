@@ -64,7 +64,6 @@ export default function Todo({ params }: { params: { tid: string } }) {
       axios.post("/api/getSingleTodo", { user: `${user?.uid}`, author: author, tid: utid }).then((res) => {
         const todo = res.data;
         setTodoState(todo);
-        console.log(todo);
         let data = JSON.stringify(todo);
         setCopyData(encodeURIComponent(data));
 
