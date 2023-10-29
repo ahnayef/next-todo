@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const todoSnap = await getDoc(todoRef);
 
   if ((todoSnap.exists())) {
-    if(todoSnap.data().public){
+    if(!(todoSnap.data().private)){
       todoInfo = {
         title: todoSnap.data().title,
         authorName: todoSnap.data().authorName,
