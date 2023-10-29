@@ -66,7 +66,7 @@ export default function Todo({ params }: { params: { tid: string } }) {
         setTodoState(todo);
         let data = JSON.stringify(todo);
         setCopyData(encodeURIComponent(data));
-
+        document.title = todo.title;
       }).catch((err) =>{toast.error(err.response.data);
         toast.info("Redirecting to author's profile");
         location.href = `/profile/${author}`;
