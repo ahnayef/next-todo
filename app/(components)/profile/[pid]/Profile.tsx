@@ -158,7 +158,7 @@ export default function Profile({ params }: { params: { pid: string } }) {
                         <>
                             <h2>Private:</h2>
                             <hr />
-                            {privateTodos.length === 0 ? <p style={{ color: "var(--red)" }}>No public todos</p> : null}
+                            {privateTodos.length === 0 ? <p style={{ color: "var(--red)" }}>No private todos</p> : null}
                             <div className={style.tBoxHoler}>
                                 {privateTodos.map((todo: any) => {
                                     const progress = ((todo.lists.filter((list: any) => list.done).length / todo.lists.length) * 100).toString();
