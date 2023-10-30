@@ -10,27 +10,18 @@ export const metadata: Metadata = {
   authors: [{ name: "AHNayef", url: "https://ahnayef.t.me" }],
   keywords: ["todo", "workflow", "management", "routine", "progress"],
   metadataBase: new URL("https://todogram.vercel.app"),
+  themeColor: "#252A34",
   viewport: {
     width: "device-width",
     initialScale: 1,
-    userScalable: true
+    userScalable: true,
   },
 
-  // openGraph: {
-  //   url: 'https://www.todogram.vercel.app',
-  //   siteName: 'Todogram',
-  //   images: [
-  //     {
-  //       url: 'https://raw.githubusercontent.com/ahnayef/next-todo/main/app/assets/img/meta.png',
-  //       width: 2782,
-  //       height: 1391,
-  //       alt: 'Meta Image',
-  //     },
-  //   ],
-  //   locale: 'en_US',
-  //   type: 'website',
-  // },
-
+  manifest: '/manifest.json',
+  icons: [
+    { rel: "apple-touch-icon", url: "/icon-192x192.png" },
+    { rel: "icon", url: "/favicon.ico" },
+  ],
 
 
   openGraph: {
@@ -71,7 +62,7 @@ export default function RootLayout({
       <body>
         <Navbar />
         {children}
-        <Analytics/>
+        <Analytics />
       </body>
     </html>
 

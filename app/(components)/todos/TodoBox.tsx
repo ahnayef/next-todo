@@ -18,11 +18,19 @@ export default function TodoBox(props: {
   const { author, tdTitle, progress, tid } = props;
 
   const delTodo = (tid: string) => {
-    deleteDoc(doc(db, "users", `${auth.currentUser?.uid}`, "todos", `${tid}`)).then(() => {
-      track("Todo deleted", { Author: author });
-      toast.success('Todo deleted successfully');
-      setTimeout(() => location.reload(), 500);
-    }).catch(() => toast.error("Something went wrong"));
+
+    if(confirm("Are you sure you want to delete this todo?")){
+
+      deleteDoc(doc(db, "users", `${auth.currentUser?.uid}`, "todos", `${tid}`)).then(() => {
+        track("Todo deleted", { Author: author });
+        toast.success('Todo deleted successfully');
+        setTimeout(() => location.reload(), 500);
+      }).catch(() => toast.error("Something went wrong"));
+      
+    }else{
+      return;
+    }
+
   };
 
   return (
