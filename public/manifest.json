@@ -1,6 +1,8 @@
 {
     "theme_color": "#f6e444",
     "background_color": "#252a34",
+    "themeColor": "#252A34",
+    "display_override": ["fullscreen", "minimal-ui"],
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
