@@ -29,5 +29,39 @@
             "sizes": "512x512",
             "type": "image/png"
         }
+    ],
+
+    "shortcats":[
+        {
+            "name": "Add Todo",
+            "description": "Add a new todo",
+            "url": "/createTodo",
+            "icons": [{
+                "src": "/shortcuts/add.png",
+                "sizes": "512x512",
+                "type": "image/png"
+            }]
+        },
+        {
+            "name": "Your Profile",
+            "description": "View your profile",
+            "url": "/",
+            "icons": [{
+                "src": "/shortcuts/profile.png",
+                "sizes": "512x512",
+                "type": "image/png"
+            }]
+        },
+        {
+            "name": "Your Todos",
+            "description": "View your todos",
+            "url": "/",
+            "icons": [{
+                "src": "/shortcuts/todos.png",
+                "sizes": "512x512",
+                "type": "image/png"
+            }]
+        }
     ]
+
 }
