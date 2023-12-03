@@ -1,18 +1,19 @@
 "use client"
 
-import { FaLink } from "react-icons/fa"
+import { FaLink, FaUser } from "react-icons/fa"
 import style from "./profile.module.css"
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "@/app/firebase";
 import PtodoBox from "../PtodoBox";
 import { doc, getDoc } from "firebase/firestore";
 import Link from "next/link";
-import { getAnalytics, logEvent } from "firebase/analytics";
 import { track } from "@vercel/analytics";
+import VanillaTilt from 'vanilla-tilt';
+import { FaFeatherPointed } from "react-icons/fa6";
 
 const initialuserData: { name: string, bio: string, created: any } = {
     name: "",
@@ -111,6 +112,38 @@ export default function Profile({ params }: { params: { pid: string } }) {
         getUserData();
     }, [pid, user]);
 
+
+
+    const tiltRef = useRef(null);
+
+    useEffect(() => {
+
+        let width = document.body.clientWidth;
+
+        if (width < 769) {
+
+        } else {
+            const tiltElement = tiltRef.current;
+
+            if (tiltElement) {
+                VanillaTilt.init(tiltElement, {
+                    max: 20,
+                    glare: true,
+                    "max-glare": 0.3,
+                    gyroscope: true, // Enable gyroscope on mobile devices
+                    gyroscopeMinAngleX: -45,
+                    gyroscopeMaxAngleX: 45,
+                    gyroscopeMinAngleY: -45,
+                    gyroscopeMaxAngleY: 45,
+                    scale: 1.05
+                });
+            }
+
+        }
+
+    }, []);
+
+
     return (
         <>
             <ToastContainer theme="dark" />
@@ -119,15 +152,18 @@ export default function Profile({ params }: { params: { pid: string } }) {
                 <div className={style.profileBox}>
 
                     <div className={style.profilePicArea}>
-                        <div className={style.profilePic}>
+                        <div className={style.profilePic} ref={tiltRef}>
                             {/* <img src={`https://images.placeholders.dev/?width=150&height=150&text=${userData?.name.split(" ")[0]}&bgColor=%23F6E444&textColor=%23252A34`} width="150px" height="150px" alt="" /> */}
-                            {userData?.name.split(" ")[0]}
+                            <h4>
+                                <FaUser/>
+                                {userData?.name.split(" ")[0]}
+                            </h4>
                         </div>
                     </div>
 
 
                     <h2>{userData?.name}</h2>
-                    <p className={style.bio}>{userData?.bio}</p>
+                    <p className={style.bio}><i><FaFeatherPointed/></i> {userData?.bio}</p>
                     <p>Member since: <i>{userData?.created}</i></p>
                     <Link href={`/editProfile`} className="btn">Edit profile</Link>
                     <button className="btn" onClick={() => {
