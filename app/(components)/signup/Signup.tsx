@@ -13,14 +13,15 @@ import { auth, db } from "@/app/firebase"
 import { useAuthState } from "react-firebase-hooks/auth";
 import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { track } from "@vercel/analytics";
+import axios from "axios";
 
-const initialState: { name: string, email: string,bio: string, password: string, confirmPassword: string, created:any} = {
+const initialState: { name: string, email: string, bio: string, password: string, confirmPassword: string, created: any } = {
   name: "",
   email: "",
-  bio:"",
+  bio: "",
   password: "",
   confirmPassword: "",
-  created:""
+  created: ""
 }
 
 
@@ -50,18 +51,27 @@ export default function Signup() {
   }
 
 
-
+  useEffect(() => {
+    const getBio = () => {
+      axios.get("https://api.quotable.io/quotes/random?maxLength=50&tag=rumi").then((res) => {
+        // let tmpBio= res.data;
+        formState.bio=`${res.data[0].content} - ${res.data[0].author}`;
+      }).catch(err => console.error(err.response));
+    }
+    getBio();
+  }, []);
 
   const handleSubmit = (e: any) => {
 
     e.preventDefault();
+
 
     const name = formState.name;
     const email = formState.email;
     const password = formState.password;
     const confirmPassword = formState.confirmPassword;
 
-    if(name && email && password && confirmPassword){
+    if (name && email && password && confirmPassword) {
       if (password === confirmPassword) {
         // console.log(email + " " + password);
         createUserWithEmailAndPassword(auth, email, password).then(async (myUser) => {
@@ -75,18 +85,18 @@ export default function Signup() {
               name: name,
               email: myUser.user.email,
               id: myUser.user.uid,
-              bio: "Todogram user",
+              bio: formState.bio,
               created: serverTimestamp()
             }).then(() => {
               toast.success("Created account successfully!");
-              console.log("Account created!");
+              console.log("Data added to database");
               location.href = "/login";
             });
           } catch (e) {
             console.error("Error adding document: ", e);
             toast.error("Error adding document");
           }
-  
+
         }).catch((error) => {
           const errorMessage = error.message;
           let errMsg = error.code.replace(/auth/g, '').replace(/[^a-zA-Z0-9]|\s\s+/g, ' ').substring(1);
@@ -94,11 +104,11 @@ export default function Signup() {
           toast.error(newMsg);
           console.log(errorMessage);
         });
-  
+
       } else {
         toast.error("Password dosen't match");
       }
-    }else{
+    } else {
       toast.error("Fill out the form");
     }
 

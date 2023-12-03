@@ -120,7 +120,8 @@ export default function Profile({ params }: { params: { pid: string } }) {
 
                     <div className={style.profilePicArea}>
                         <div className={style.profilePic}>
-                            <img src={`https://images.placeholders.dev/?width=150&height=150&text=${userData?.name}&bgColor=%23F6E444&textColor=%23252A34`} width="150px" height="150px" alt="" />
+                            {/* <img src={`https://images.placeholders.dev/?width=150&height=150&text=${userData?.name.split(" ")[0]}&bgColor=%23F6E444&textColor=%23252A34`} width="150px" height="150px" alt="" /> */}
+                            {userData?.name.split(" ")[0]}
                         </div>
                     </div>
 
