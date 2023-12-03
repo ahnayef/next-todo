@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { BiSolidEdit } from "react-icons/bi";
 import { FaCheck, FaCopy, FaLink, FaListUl, FaPlus, FaSave, FaShareAlt, FaTimes } from "react-icons/fa";
+import { FaFeatherPointed } from "react-icons/fa6";
 import { FiTrash } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import style from "./todo.module.css"
@@ -277,7 +278,7 @@ export default function Todo({ params }: { params: { tid: string } }) {
                   {isOwner ?
                     <p title='Mark done' onClick={() => markDone(item.id)}>
                     </p>
-                    : <p>{index + 1}</p>}
+                    : <i className={style.feather}><FaFeatherPointed/></i>}
 
                 </div>
 

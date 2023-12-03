@@ -11,6 +11,12 @@
     opacity: 0.5;
 }
 
+.sTodoMain .done .feather {
+    color: var(--primary-light);
+}
+
+
+
 .sTodoMain ul {
     padding: 1em;
     display: flex;
@@ -123,6 +129,19 @@
     border-color: var(--green);
     transition: 0.3s;
 }
+
+.sTodoMain ul li .index .feather:hover {
+    color: var(--primary);
+    transition: 0.3s;
+}
+
+.sTodoMain ul li .index .feather{
+    text-decoration: line-through;
+}
+
+
+
+
 
 .sTodoMain ul li .text {
     width: 95%;
